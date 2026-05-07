@@ -255,7 +255,7 @@ canvas#ch{width:100%;height:130px;display:block;}
     <div class="logo-icon">ð¤</div>
     <div>
       <div class="logo-text">MEXCÂ·BOT</div>
-      <div class="logo-sub">TRADING AUTOMÃTICO</div>
+      <div class="logo-sub">TRADING AUTOMÁTICO</div>
     </div>
   </div>
   <div class="hdr-right">
@@ -263,7 +263,7 @@ canvas#ch{width:100%;height:130px;display:block;}
     <div class="acct-btn" onclick="openModal()">
       <div class="acct-dot off" id="aDot"></div>
       <div>
-        <div class="acct-lbl" id="aLbl">Sem conexÃ£o</div>
+        <div class="acct-lbl" id="aLbl">Sem conexão</div>
         <span class="acct-sub2 none" id="aSub">VERIFICAR</span>
       </div>
     </div>
@@ -279,20 +279,20 @@ canvas#ch{width:100%;height:130px;display:block;}
   <div class="modal">
     <button class="modal-x" onclick="closeModal()">â</button>
     <div class="modal-title">ð Conta MEXC</div>
-    <div class="modal-sub">Verifique a conexÃ£o com sua conta. Suas chaves ficam seguras no servidor.</div>
+    <div class="modal-sub">Verifique a conexão com sua conta. Suas chaves ficam seguras no servidor.</div>
     <div class="sc">
-      <div class="sc-row"><span class="sc-lbl">CONEXÃO</span><span class="bdg none" id="mConn">NÃO VERIFICADA</span></div>
+      <div class="sc-row"><span class="sc-lbl">CONEXÁO</span><span class="bdg none" id="mConn">NÁO VERIFICADA</span></div>
       <div class="sc-row"><span class="sc-lbl">TIPO</span><span class="bdg none" id="mType">â</span></div>
       <div class="sc-row"><span class="sc-lbl">SALDO USDT</span><span class="sc-val" id="mBal" style="color:var(--green)">â</span></div>
-      <div class="sc-row"><span class="sc-lbl">PATRIMÃNIO</span><span class="sc-val" id="mEq" style="color:var(--muted2)">â</span></div>
+      <div class="sc-row"><span class="sc-lbl">PATRIMÁNIO</span><span class="sc-val" id="mEq" style="color:var(--muted2)">â</span></div>
       <div class="sc-row"><span class="sc-lbl">VERIFICADO EM</span><span class="sc-val" id="mTime" style="color:var(--muted2);font-size:10px">Nunca</span></div>
     </div>
     <button class="modal-btn" id="verBtn" onclick="doVerify()">ð VERIFICAR SALDO AGORA</button>
     <div class="err-box" id="mErr"></div>
     <div class="ok-box" id="mOk"></div>
     <div class="hint">
-      ð Chaves configuradas nas variÃ¡veis do Render (MEXC_API_KEY / MEXC_API_SECRET)<br>
-      ð Nunca expostas no browser Â· Servidor faz as chamadas direto Ã  MEXC<br>
+      ð Chaves configuradas nas variáveis do Render (MEXC_API_KEY / MEXC_API_SECRET)<br>
+      ð Nunca expostas no browser Â· Servidor faz as chamadas direto Á  MEXC<br>
       ð± Acesse de qualquer dispositivo pelo link do Render
     </div>
   </div>
@@ -301,16 +301,16 @@ canvas#ch{width:100%;height:130px;display:block;}
 <!-- SETUP -->
 <div class="setup" id="setup">
   <div class="setup-card">
-    <div class="setup-title">Configure seu<br><span>RobÃ´ de Trading</span></div>
-    <div class="setup-sub">Escolha o modo, ajuste os parÃ¢metros e inicie. Comece em SimulaÃ§Ã£o para aprender sem risco.</div>
+    <div class="setup-title">Configure seu<br><span>Robô de Trading</span></div>
+    <div class="setup-sub">Escolha o modo, ajuste os parâmetros e inicie. Comece em Simulação para aprender sem risco.</div>
 
     <!-- MODO -->
-    <div class="form-lbl" style="margin-bottom:10px">MODO DE OPERAÃÃO</div>
+    <div class="form-lbl" style="margin-bottom:10px">MODO DE OPERAÁÁO</div>
     <div class="modes">
       <div class="mode active-sim" id="btnSim" onclick="setMode('sim')">
         <div class="mode-ico">ð¡ï¸</div>
-        <div class="mode-name">SimulaÃ§Ã£o</div>
-        <div class="mode-desc">Sem risco Â· GrÃ¡tis</div>
+        <div class="mode-name">Simulação</div>
+        <div class="mode-desc">Sem risco Â· Grátis</div>
       </div>
       <div class="mode" id="btnLive" onclick="setMode('live')">
         <div class="mode-ico">â¡</div>
@@ -332,16 +332,16 @@ canvas#ch{width:100%;height:130px;display:block;}
         <input class="inp" id="lSec" type="password" placeholder="â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢">
         <button class="eye" onclick="toggleEye('lSec','e2')" id="e2">ð</button>
       </div>
-      <button class="test-btn" id="testBtn" onclick="testCreds()">ð TESTAR CONEXÃO</button>
+      <button class="test-btn" id="testBtn" onclick="testCreds()">ð TESTAR CONEXÁO</button>
       <div class="test-result" id="testRes"></div>
       <div class="api-hint">
         â¹ï¸ MEXC â Perfil â API Management â Criar API<br>
-        â PermissÃµes: Leitura de conta + Trade Spot
+        â Permissões: Leitura de conta + Trade Spot
       </div>
     </div>
 
     <!-- ZERO FEE -->
-    <div class="form-lbl" style="margin-bottom:8px">PARES DE NEGOCIAÃÃO</div>
+    <div class="form-lbl" style="margin-bottom:8px">PARES DE NEGOCIAÁÁO</div>
     <div class="fee-row">
       <label class="tog"><input type="checkbox" id="zfChk" onchange="syncZf()"><span class="tog-s"></span></label>
       <span class="fee-lbl">Apenas Zero Taxa <strong>(0% fee)</strong></span>
@@ -358,7 +358,7 @@ canvas#ch{width:100%;height:130px;display:block;}
         </div>
       </div>
       <div class="form-group">
-        <label class="form-lbl">MÃX. POSIÃÃES</label>
+        <label class="form-lbl">MÁX. POSIÁÁES</label>
         <div class="range-row">
           <input type="range" class="slider" id="sMax" min="1" max="10" value="3" step="1" oninput="$('sMaxV').textContent=this.value">
           <span class="range-val" id="sMaxV">3</span>
@@ -382,17 +382,17 @@ canvas#ch{width:100%;height:130px;display:block;}
       </div>
     </div>
     <div class="form-group">
-      <label class="form-lbl">ESTRATÃGIA</label>
+      <label class="form-lbl">ESTRATÁGIA</label>
       <select class="form-input" id="sStrat">
         <option value="balanced">âï¸ Balanceada â RSI + MACD + Bollinger (recomendada)</option>
         <option value="conservative">ð¢ Conservadora â Poucos trades, mais certeza</option>
         <option value="aggressive">â¡ Agressiva â Mais trades, mais risco</option>
-        <option value="scalping">ð¥ Scalping â Ganhos rÃ¡pidos e pequenos</option>
+        <option value="scalping">ð¥ Scalping â Ganhos rápidos e pequenos</option>
       </select>
     </div>
 
     <button class="go-btn" onclick="startBot()">ð INICIAR BOT</button>
-    <div class="warn">â ï¸ Trading envolve risco de perda. Comece sempre em SimulaÃ§Ã£o. Nunca invista mais do que pode perder.</div>
+    <div class="warn">â ï¸ Trading envolve risco de perda. Comece sempre em Simulação. Nunca invista mais do que pode perder.</div>
   </div>
 </div>
 
@@ -402,7 +402,7 @@ canvas#ch{width:100%;height:130px;display:block;}
     <div class="mc"><div class="mc-lbl">SALDO USDT</div><div class="mc-val g" id="dBal">â</div><div class="mc-sub" id="dBalSub">â</div></div>
     <div class="mc"><div class="mc-lbl">PnL TOTAL</div><div class="mc-val g" id="dPnl">+$0,00</div><div class="mc-sub" id="dPnlSub">0 trades</div></div>
     <div class="mc"><div class="mc-lbl">WIN RATE</div><div class="mc-val y" id="dWr">â</div><div class="mc-sub">Trades ganhos</div></div>
-    <div class="mc"><div class="mc-lbl">POSIÃÃES</div><div class="mc-val b" id="dPos">0/3</div><div class="mc-sub" id="dPosSub">â</div></div>
+    <div class="mc"><div class="mc-lbl">POSIÁÁES</div><div class="mc-val b" id="dPos">0/3</div><div class="mc-sub" id="dPosSub">â</div></div>
     <div class="mc"><div class="mc-lbl">UPTIME</div><div class="mc-val p" id="dUp">00:00:00</div><div class="mc-sub" id="dCyc">0 ciclos</div></div>
   </div>
 
@@ -411,7 +411,7 @@ canvas#ch{width:100%;height:130px;display:block;}
       <!-- CHART -->
       <div class="panel">
         <div class="ph">
-          <span class="pt">PREÃO AO VIVO</span>
+          <span class="pt">PREÁO AO VIVO</span>
           <div class="syms">
             <button class="sym active" onclick="switchChart('BTCUSDT',this)">BTC</button>
             <button class="sym" onclick="switchChart('ETHUSDT',this)">ETH</button>
@@ -437,9 +437,9 @@ canvas#ch{width:100%;height:130px;display:block;}
       </div>
       <!-- TRADES -->
       <div class="panel">
-        <div class="ph"><span class="pt">HISTÃRICO</span><span class="pb" id="tCount">0 trades</span></div>
+        <div class="ph"><span class="pt">HISTÁRICO</span><span class="pb" id="tCount">0 trades</span></div>
         <table class="tt">
-          <thead><tr><th>PAR</th><th>ENTRADA</th><th>SAÃDA</th><th>PnL</th><th>STATUS</th><th>HORA</th></tr></thead>
+          <thead><tr><th>PAR</th><th>ENTRADA</th><th>SAÁDA</th><th>PnL</th><th>STATUS</th><th>HORA</th></tr></thead>
           <tbody id="tBody"><tr><td colspan="6" style="text-align:center;color:var(--muted);padding:22px;font-size:11px">Aguardando primeiro trade...</td></tr></tbody>
         </table>
       </div>
@@ -450,7 +450,7 @@ canvas#ch{width:100%;height:130px;display:block;}
       <div class="panel">
         <div class="ph"><span class="pt">CONTA MEXC</span><button onclick="openModal()" style="background:none;border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:9px;cursor:pointer;padding:2px 8px;">VERIFICAR</button></div>
         <div class="cfg" style="gap:8px">
-          <div class="cfg-row"><span class="cfg-lbl">ConexÃ£o</span><span class="bdg none" id="dConn">â</span></div>
+          <div class="cfg-row"><span class="cfg-lbl">Conexão</span><span class="bdg none" id="dConn">â</span></div>
           <div class="cfg-row"><span class="cfg-lbl">Tipo</span><span class="bdg none" id="dType">â</span></div>
           <div class="cfg-row"><span class="cfg-lbl">Saldo real</span><span class="cfg-val g" id="dRealBal">â</span></div>
           <div class="cfg-row"><span class="cfg-lbl">Zero Taxa</span><span class="cfg-val g" id="dZfInfo">â</span></div>
@@ -485,10 +485,10 @@ canvas#ch{width:100%;height:130px;display:block;}
           <div class="cfg-row"><span class="cfg-lbl">Por trade</span><span class="cfg-val g" id="cfAmt">â</span></div>
           <div class="cfg-row"><span class="cfg-lbl">Take Profit</span><span class="cfg-val g" id="cfTp">â</span></div>
           <div class="cfg-row"><span class="cfg-lbl">Stop Loss</span><span class="cfg-val" style="color:var(--red)" id="cfSl">â</span></div>
-          <div class="cfg-row"><span class="cfg-lbl">Zero Taxa</span><span class="cfg-val" id="cfZf">NÃO</span></div>
+          <div class="cfg-row"><span class="cfg-lbl">Zero Taxa</span><span class="cfg-val" id="cfZf">NÁO</span></div>
           <button class="act-btn btn-stop" id="btnStop" onclick="stopBot()">â¹ PARAR BOT</button>
           <button class="act-btn btn-restart" id="btnRestart" style="display:none" onclick="startBot()">â¶ REINICIAR</button>
-          <button class="act-btn btn-back" id="btnBack" style="display:none" onclick="goSetup()">âï¸ CONFIGURAÃÃES</button>
+          <button class="act-btn btn-back" id="btnBack" style="display:none" onclick="goSetup()">âï¸ CONFIGURAÁÁES</button>
         </div>
       </div>
       <!-- LOG -->
@@ -539,7 +539,7 @@ const ALL = [
   {sym:'SOLUSDT',  ico:'â', base:152,        vol:'480M'},
   {sym:'XRPUSDT',  ico:'â', base:2.31,       vol:'620M'},
   {sym:'BNBUSDT',  ico:'â¬¡', base:598,        vol:'310M'},
-  {sym:'DOGEUSDT', ico:'Ã', base:0.198,      vol:'290M'},
+  {sym:'DOGEUSDT', ico:'Á', base:0.198,      vol:'290M'},
   {sym:'PEPEUSDT', ico:'ð¸',base:0.0000134,  vol:'260M'},
   {sym:'SHIBUSDT', ico:'ð',base:0.0000245,  vol:'200M'},
   {sym:'ADAUSDT',  ico:'â³', base:0.782,      vol:'210M'},
@@ -586,7 +586,7 @@ function syncModal(){
   const ce=$('mConn'),te=$('mType');
   if(c.ok){
     ce.textContent='CONECTADO â'; ce.className='bdg ok';
-    te.textContent=S.mode==='live'?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÃÃO';
+    te.textContent=S.mode==='live'?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÁÁO';
     te.className='bdg '+(S.mode==='live'?'live':'sim');
     $('mBal').textContent=c.bal; $('mEq').textContent=c.eq;
   } else {
@@ -609,7 +609,7 @@ async function doVerify(){
       S.conn.eq=`$${(d.equity||d.balance).toFixed(2)} USDT`;
       S.realBal=d.balance;
       $('mOk').style.display='block';
-      $('mOk').textContent=`â ${d.account}: $${d.balance.toFixed(2)} USDT disponÃ­vel`;
+      $('mOk').textContent=`â ${d.account}: $${d.balance.toFixed(2)} USDT disponível`;
       applyBal(d.balance,d.account);
       updateHdr(); syncDash();
       toast(`â Saldo ${d.account}: $${d.balance.toFixed(2)} USDT`,'s');
@@ -643,9 +643,9 @@ async function testCreds(){
     res.textContent='â ï¸ Preencha a API Key e o Secret.'; return;
   }
   btn.disabled=true; btn.textContent='â³ Testandoâ¦'; res.style.display='none';
-  // Envia para o servidor testar (em produÃ§Ã£o no Render as vars de ambiente tÃªm prioridade)
+  // Envia para o servidor testar (em produção no Render as vars de ambiente têm prioridade)
   try{
-    // Salva na sessÃ£o do servidor para teste imediato
+    // Salva na sessão do servidor para teste imediato
     await fetch('/api/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({api_key:key,api_secret:sec})});
     const r=await fetch('/api/balance'), d=await r.json();
     res.style.display='block';
@@ -669,7 +669,7 @@ async function testCreds(){
     res.style.display='block'; res.className='test-result test-fail';
     res.textContent='â Erro: '+e.message;
   }
-  btn.disabled=false; btn.textContent='ð TESTAR CONEXÃO';
+  btn.disabled=false; btn.textContent='ð TESTAR CONEXÁO';
 }
 
 function syncZf(){
@@ -680,7 +680,7 @@ function onDashZf(el){
   S.zf=el.checked; $('zfChk').checked=el.checked;
   const a=active();
   $('pairBdg').textContent=a.length+' pares'; $('dZfCnt').textContent=a.length;
-  $('cfZf').textContent=el.checked?'SIM â':'NÃO';
+  $('cfZf').textContent=el.checked?'SIM â':'NÁO';
   renderPairs();
   log(`ð·ï¸ Zero Taxa: ${el.checked?'ATIVO ('+a.length+' pares)':'Desativado'}`,'b');
   toast(el.checked?`â ${a.length} pares 0% fee`:'Todos os pares','i');
@@ -713,9 +713,9 @@ function startBot(){
   $('btnStop').style.display='block'; $('btnRestart').style.display='none'; $('btnBack').style.display='none';
 
   const live=S.mode==='live'||S.cfg.mode==='live';
-  $('cfMode').textContent=live?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÃÃO'; $('cfMode').className='cfg-val '+(live?'o':'b');
+  $('cfMode').textContent=live?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÁÁO'; $('cfMode').className='cfg-val '+(live?'o':'b');
   $('cfAmt').textContent=`$${S.cfg.amt}`; $('cfTp').textContent=`${S.cfg.tp.toFixed(1)}%`;
-  $('cfSl').textContent=`${S.cfg.sl.toFixed(1)}%`; $('cfZf').textContent=S.cfg.zf?'SIM â':'NÃO';
+  $('cfSl').textContent=`${S.cfg.sl.toFixed(1)}%`; $('cfZf').textContent=S.cfg.zf?'SIM â':'NÁO';
   $('dPos').textContent=`0/${S.cfg.max}`; $('dZfChk').checked=S.zf;
 
   const ap=active();
@@ -724,12 +724,12 @@ function startBot(){
 
   // Saldo inicial
   if(S.realBal){ S.bal=S.realBal; applyBal(S.realBal, 'Real'); }
-  else { S.bal=1000; $('dBal').textContent='$1.000,00'; $('dBalSub').textContent='Capital simulaÃ§Ã£o'; }
+  else { S.bal=1000; $('dBal').textContent='$1.000,00'; $('dBalSub').textContent='Capital simulação'; }
 
   S.running=true; S.t0=Date.now(); S.cycles=0;
   renderPairs(); initChart();
-  log(`ð¤ Bot ${dashOn?'REINICIADO':'INICIADO'} Â· ${live?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÃÃO'}`,'g');
-  log(`âï¸ TP:${S.cfg.tp}% | SL:${S.cfg.sl}% | Max:${S.cfg.max} | ZF:${S.cfg.zf?'SIM':'NÃO'}`,'w');
+  log(`ð¤ Bot ${dashOn?'REINICIADO':'INICIADO'} Â· ${live?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÁÁO'}`,'g');
+  log(`âï¸ TP:${S.cfg.tp}% | SL:${S.cfg.sl}% | Max:${S.cfg.max} | ZF:${S.cfg.zf?'SIM':'NÁO'}`,'w');
   toast(`ð Bot ${dashOn?'reiniciado':'iniciado'}!`,'s');
 
   // Atualiza saldo real a cada 30s se live
@@ -743,7 +743,7 @@ function startBot(){
     setTimeout(rb,2000); S.balT=setInterval(rb,30000);
   }
 
-  // Busca preÃ§os reais
+  // Busca preços reais
   fetchPrices();
   S.chartT=setInterval(updatePrices,2500);
   S.scanT=setInterval(scan,9000);
@@ -776,8 +776,8 @@ function goSetup(){
 function updateHdr(){
   const c=S.conn;
   $('aDot').className='acct-dot '+(c.ok?'on':'off');
-  $('aLbl').textContent=c.ok?(S.mode==='live'?'MEXC Conectado':'SimulaÃ§Ã£o Ativa'):'Sem conexÃ£o';
-  const sub=$('aSub'); sub.textContent=S.mode==='live'?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÃÃO';
+  $('aLbl').textContent=c.ok?(S.mode==='live'?'MEXC Conectado':'Simulação Ativa'):'Sem conexão';
+  const sub=$('aSub'); sub.textContent=S.mode==='live'?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÁÁO';
   sub.className='acct-sub2 '+(c.ok?(S.mode==='live'?'live':'sim'):'none');
 }
 function syncDash(){
@@ -785,10 +785,10 @@ function syncDash(){
   const ce=$('dConn'),te=$('dType');
   if(c.ok){ ce.textContent='CONECTADO â'; ce.className='bdg ok'; te.textContent=S.mode==='live'?'â¡ REAL':'ð¡ï¸ SIM'; te.className='bdg '+(S.mode==='live'?'live':'sim'); $('dRealBal').textContent=c.bal; }
   else { ce.textContent='â'; ce.className='bdg none'; te.textContent='â'; te.className='bdg none'; $('dRealBal').textContent='â'; }
-  $('dZfInfo').textContent=ZF.size+' disponÃ­veis';
+  $('dZfInfo').textContent=ZF.size+' disponíveis';
 }
 
-// ââ PreÃ§os ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ââ Preços ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 let lastFetch=0;
 async function fetchPrices(){
   if(Date.now()-lastFetch<10000) return; lastFetch=Date.now();
@@ -971,7 +971,7 @@ function renderTrades(){
     }
     // Zero fee do servidor
     const r3=await fetch('/api/zerofee'), d3=await r3.json();
-    if(d3.ok){ ZF=new Set(d3.pairs); $('dZfInfo').textContent=ZF.size+' disponÃ­veis'; }
+    if(d3.ok){ ZF=new Set(d3.pairs); $('dZfInfo').textContent=ZF.size+' disponíveis'; }
   } catch(e){}
 })();
 </script>
