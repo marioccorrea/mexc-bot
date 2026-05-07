@@ -11,7 +11,9 @@ def sign(secret, params):
 
 @app.route("/")
 def index():
-    return open(os.path.join(BASE,"templates","index.html"), encoding="utf-8").read()
+    html = open(os.path.join(BASE,"templates","index.html"), encoding="utf-8").read()
+    from flask import Response
+    return Response(html, content_type="text/html; charset=utf-8")
 
 @app.route("/api/health")
 def health():
@@ -25,7 +27,7 @@ def creds():
     return jsonify({
         "has_key":    bool(key),
         "has_secret": bool(secret),
-        "key_hint":   (key[:4]+"••••"+key[-4:]) if key else "",
+        "key_hint":   (key[:4]+"â¢â¢â¢â¢"+key[-4:]) if key else "",
         "mode":       "live" if (key and secret) else "sim"
     })
 
@@ -34,7 +36,7 @@ def balance():
     key    = os.environ.get("MEXC_API_KEY","") or _sess.get("api_key","")
     secret = os.environ.get("MEXC_API_SECRET","") or _sess.get("api_secret","")
     if not key or not secret:
-        return jsonify({"ok":False,"error":"API Key não configurada. Adicione MEXC_API_KEY e MEXC_API_SECRET nas variáveis do Render (Environment → Add Variable)."})
+        return jsonify({"ok":False,"error":"API Key nÃ£o configurada. Adicione MEXC_API_KEY e MEXC_API_SECRET nas variÃ¡veis do Render (Environment â Add Variable)."})
     headers = {"X-MEXC-APIKEY": key}
     # Tenta Spot
     try:
@@ -54,7 +56,7 @@ def balance():
             return jsonify({"ok":False,"error":"Sem USDT na conta Spot."})
         msg = d.get("msg") or d.get("message") or f"HTTP {r.status_code}"
         if r.status_code in (401,403):
-            return jsonify({"ok":False,"error":f"API Key inválida: {msg}"})
+            return jsonify({"ok":False,"error":f"API Key invÃ¡lida: {msg}"})
         return jsonify({"ok":False,"error":msg})
     except Exception as e:
         return jsonify({"ok":False,"error":str(e)})
