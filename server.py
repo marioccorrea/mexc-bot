@@ -15,7 +15,6 @@ def get_creds():
     return key, secret
 
 def sign(secret, params):
-    # MEXC: assinar sem ordenar, na ordem exata dos params
     q = "&".join(f"{k}={v}" for k,v in params.items())
     return hmac.new(secret.encode(), q.encode(), hashlib.sha256).hexdigest()
 
@@ -31,16 +30,13 @@ def mexc_get(path, extra=None):
 
 def mexc_post(path, params):
     key, secret = get_creds()
-    # Monta params na ordem: params de negocio + timestamp
     p = dict(params)
     p["timestamp"] = int(time.time()*1000)
-    # Assina sobre a query string sem signature
     query = "&".join(f"{k}={v}" for k,v in p.items())
     sig = hmac.new(secret.encode(), query.encode(), hashlib.sha256).hexdigest()
-    # Envia como query string + signature
     url = f"https://api.mexc.com{path}?{query}&signature={sig}"
     r = requests.post(url, headers={"X-MEXC-APIKEY": key}, timeout=10)
-    log.info(f"[POST] {path} status={r.status_code} url={url[:100]}")
+    log.info(f"[POST] {path} status={r.status_code}")
     return r.status_code, r.json()
 
 @app.route("/")
@@ -51,7 +47,7 @@ def index():
 @app.route("/api/health")
 def health():
     key, _ = get_creds()
-    return jsonify({"ok":True,"has_key":bool(key),"version":"3.5-live"})
+    return jsonify({"ok":True,"has_key":bool(key),"version":"3.6-live"})
 
 @app.route("/api/creds")
 def creds():
@@ -79,6 +75,48 @@ def balance():
                 return jsonify({"ok":True,"balance":free,"equity":free+locked,"account":"Spot"})
             return jsonify({"ok":False,"error":"Sem USDT na conta Spot."})
         return jsonify({"ok":False,"error": d.get("msg") or f"HTTP {status}"})
+    except Exception as e:
+        return jsonify({"ok":False,"error":str(e)})
+
+@app.route("/api/wallet")
+def wallet():
+    """Retorna todas as moedas com saldo > 0 e valor em USDT"""
+    key, secret = get_creds()
+    if not key or not secret:
+        return jsonify({"ok":False,"error":"Sem credenciais"})
+    try:
+        status, d = mexc_get("/api/v3/account")
+        if status != 200:
+            return jsonify({"ok":False,"error": d.get("msg","")})
+        balances = d.get("balances") or []
+        # Filtra moedas com saldo
+        nonzero = [b for b in balances
+                   if float(b.get("free",0)) + float(b.get("locked",0)) > 0.000001]
+        # Busca precos em batch
+        result = []
+        for b in nonzero:
+            asset = b.get("asset","")
+            free   = float(b.get("free",0))
+            locked = float(b.get("locked",0))
+            total  = free + locked
+            if asset == "USDT":
+                result.append({"asset":asset,"free":free,"locked":locked,"total":total,
+                                "price":1.0,"value_usdt":total,"symbol":"-"})
+                continue
+            sym = f"{asset}USDT"
+            try:
+                rp = requests.get("https://api.mexc.com/api/v3/ticker/price",
+                                  params={"symbol":sym}, timeout=5)
+                price = float(rp.json().get("price",0))
+                value = total * price
+                result.append({"asset":asset,"free":free,"locked":locked,"total":total,
+                                "price":price,"value_usdt":round(value,4),"symbol":sym})
+            except:
+                result.append({"asset":asset,"free":free,"locked":locked,"total":total,
+                                "price":0,"value_usdt":0,"symbol":sym})
+        result.sort(key=lambda x: x["value_usdt"], reverse=True)
+        total_usdt = sum(x["value_usdt"] for x in result)
+        return jsonify({"ok":True,"assets":result,"total_usdt":round(total_usdt,4)})
     except Exception as e:
         return jsonify({"ok":False,"error":str(e)})
 
@@ -178,7 +216,7 @@ def debug():
         result["spot_status"] = status
         if status == 200:
             result["spot_balances"] = [b for b in (d.get("balances") or [])
-                if float(b.get("free",0))+float(b.get("locked",0))>0][:10]
+                if float(b.get("free",0))+float(b.get("locked",0))>0][:15]
         else:
             result["spot_error"] = d.get("msg","")
     except Exception as e:
@@ -187,5 +225,5 @@ def debug():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT",5000))
-    log.info(f"MEXC Bot v3.5 LIVE porta {port}")
+    log.info(f"MEXC Bot v3.6 LIVE porta {port}")
     app.run(host="0.0.0.0", port=port)
