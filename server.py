@@ -29,12 +29,14 @@ def mexc_get(path, extra=None):
 
 def mexc_post(path, params):
     key, secret = get_creds()
-    p = {"timestamp": int(time.time()*1000)}
+    ts = int(time.time()*1000)
+    p = {"timestamp": ts}
     p.update(params)
-    p["signature"] = sign(secret, p)
-    r = requests.post(f"https://api.mexc.com{path}", params=p,
-                      headers={"X-MEXC-APIKEY": key,
-                               "Content-Type": "application/json"},
+    sig = sign(secret, p)
+    p["signature"] = sig
+    r = requests.post(f"https://api.mexc.com{path}",
+                      params=p,
+                      headers={"X-MEXC-APIKEY": key},
                       timeout=10)
     return r.status_code, r.json()
 
@@ -46,7 +48,7 @@ def index():
 @app.route("/api/health")
 def health():
     key, _ = get_creds()
-    return jsonify({"ok":True,"has_key":bool(key),"version":"3.2-live"})
+    return jsonify({"ok":True,"has_key":bool(key),"version":"3.3-live"})
 
 @app.route("/api/creds")
 def creds():
@@ -71,7 +73,6 @@ def balance():
             usdt = next((b for b in (d.get("balances") or []) if b.get("asset")=="USDT"), None)
             if usdt:
                 free = float(usdt.get("free",0)); locked = float(usdt.get("locked",0))
-                log.info(f"[Balance] USDT free={free:.4f}")
                 return jsonify({"ok":True,"balance":free,"equity":free+locked,"account":"Spot"})
             return jsonify({"ok":False,"error":"Sem USDT na conta Spot."})
         return jsonify({"ok":False,"error": d.get("msg") or f"HTTP {status}"})
@@ -96,7 +97,6 @@ def order_buy():
                             "qty":d.get("executedQty"),"price":price,"side":"BUY"})
         return jsonify({"ok":False,"error":d.get("msg") or f"HTTP {status}","raw":d})
     except Exception as e:
-        log.error(f"[BUY] erro: {e}")
         return jsonify({"ok":False,"error":str(e)})
 
 @app.route("/api/order/sell", methods=["POST"])
@@ -115,7 +115,6 @@ def order_sell():
                             "qty":d.get("executedQty"),"side":"SELL"})
         return jsonify({"ok":False,"error":d.get("msg") or f"HTTP {status}","raw":d})
     except Exception as e:
-        log.error(f"[SELL] erro: {e}")
         return jsonify({"ok":False,"error":str(e)})
 
 @app.route("/api/symbol/info")
@@ -185,5 +184,5 @@ def debug():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT",5000))
-    log.info(f"MEXC Bot v3.2 LIVE porta {port}")
+    log.info(f"MEXC Bot v3.3 LIVE porta {port}")
     app.run(host="0.0.0.0", port=port)
