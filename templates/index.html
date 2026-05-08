@@ -296,10 +296,64 @@ canvas#ch{width:100%;height:130px;display:block;}
     .pos-empty{padding:24px;text-align:center;color:var(--muted2);font-size:12px}
     .fut-bal{font-family:var(--mono);font-size:11px;color:var(--muted);padding:0 12px 8px}
     .liq-warn{color:var(--red);font-size:10px;font-family:var(--mono)}
+  
+    /* PNL SCREEN */
+    .pnl-screen{display:none;padding:16px;gap:16px;flex-direction:column}
+    .pnl-screen.show{display:flex}
+    .pnl-nav{display:flex;gap:8px;margin-bottom:4px}
+    .pnl-nav-btn{padding:7px 16px;border-radius:6px;border:1px solid var(--border);background:var(--s1);color:var(--muted);font-family:var(--mono);font-size:11px;cursor:pointer;font-weight:700}
+    .pnl-nav-btn.active{border-color:var(--green);color:var(--green);background:rgba(0,255,140,0.08)}
+    /* META CARDS */
+    .meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .meta-card{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+    .meta-card::after{content:'';position:absolute;bottom:0;left:0;height:3px;background:var(--green);transition:.5s}
+    .meta-card.warn::after{background:var(--yellow)}
+    .meta-card.danger::after{background:var(--red)}
+    .meta-card.done::after{background:var(--green);width:100%!important}
+    .mc-label{font-size:10px;color:var(--muted2);font-family:var(--mono);letter-spacing:1px;text-transform:uppercase}
+    .mc-val{font-size:22px;font-weight:700;font-family:var(--mono)}
+    .mc-val.pos{color:var(--green)}.mc-val.neg{color:var(--red)}.mc-val.neu{color:var(--text)}
+    .mc-meta{font-size:11px;font-family:var(--mono);color:var(--muted)}
+    .mc-prog-wrap{height:4px;background:var(--border);border-radius:2px;margin-top:2px}
+    .mc-prog{height:4px;border-radius:2px;background:var(--green);transition:.5s}
+    .mc-prog.warn{background:var(--yellow)}.mc-prog.danger{background:var(--red)}
+    .mc-status{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;display:inline-block;margin-top:2px}
+    .mc-status.ok{background:rgba(0,255,140,.15);color:var(--green)}
+    .mc-status.nok{background:rgba(255,63,51,.15);color:var(--red)}
+    .mc-status.run{background:rgba(255,220,50,.15);color:var(--yellow)}
+    /* ALERTA META */
+    .meta-alert{display:none;padding:10px 14px;border-radius:8px;font-family:var(--mono);font-size:12px;font-weight:700;margin-bottom:8px;border:1px solid}
+    .meta-alert.show{display:block}
+    .meta-alert.daily-ok{background:rgba(0,255,140,.08);border-color:var(--green);color:var(--green)}
+    .meta-alert.daily-stop{background:rgba(255,63,51,.08);border-color:var(--red);color:var(--red)}
+    .meta-alert.trailing{background:rgba(255,220,50,.08);border-color:var(--yellow);color:var(--yellow)}
+    /* HISTORICO PNL */
+    .pnl-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px}
+    .pnl-table th{text-align:left;padding:6px 8px;color:var(--muted2);border-bottom:1px solid var(--border);font-weight:600;letter-spacing:.5px}
+    .pnl-table td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04)}
+    .pnl-table tr:hover td{background:var(--s1)}
+    .pt-pos{color:var(--green);font-weight:700}.pt-neg{color:var(--red);font-weight:700}
+    .pt-sym{color:var(--text);font-weight:700}.pt-side-long{color:var(--green)}.pt-side-short{color:var(--red)}
+    .pnl-empty{padding:32px;text-align:center;color:var(--muted2);font-size:12px}
+    /* BANNER META DIARIA */
+    .daily-banner{display:none;position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:999;padding:12px 24px;border-radius:10px;font-family:var(--mono);font-size:13px;font-weight:700;border:1px solid;backdrop-filter:blur(10px);animation:slideDown .4s ease}
+    .daily-banner.show{display:block}
+    .daily-banner.ok{background:rgba(0,255,140,.15);border-color:var(--green);color:var(--green)}
+    .daily-banner.stop{background:rgba(255,63,51,.15);border-color:var(--red);color:var(--red)}
+    @keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+    /* CONFIGURACOES META */
+    .meta-cfg{background:rgba(0,255,140,.04);border:1px solid rgba(0,255,140,.15);border-radius:8px;padding:12px;margin-top:8px}
+    .meta-cfg-title{font-family:var(--mono);font-size:10px;color:var(--green);font-weight:700;letter-spacing:1px;margin-bottom:10px}
+    .meta-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+    .meta-input-grp{display:flex;flex-direction:column;gap:4px}
+    .meta-input-grp label{font-family:var(--mono);font-size:10px;color:var(--muted2)}
+    .meta-input-grp input{padding:6px 8px;background:var(--s1);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:12px;width:100%;box-sizing:border-box}
+    .meta-input-grp input:focus{outline:none;border-color:var(--green)}
   </style>
 </head>
 <body>
 <div class="app">
+  <div class="daily-banner" id="dailyBanner"></div>
 
 <!-- HEADER -->
 <header class="hdr">
@@ -1409,6 +1463,347 @@ checkExits=function(){
     await openFutPos(symbol, side, amount, leverage, tp, sl);
   }
   
+
+  // ============================================================
+  // SISTEMA DE METAS + TRAILING + PNL
+  // ============================================================
+  const _pnlStore = JSON.parse(localStorage.getItem('pnl_trades')||'[]');
+  let _pnlFilter = 'all';
+  let _curScreen = 'main'; // 'main' | 'pnl'
+
+  // Metas configuradas
+  let _meta = {
+    day:   parseFloat(localStorage.getItem('meta_day')  || '2'),
+    week:  parseFloat(localStorage.getItem('meta_week') || '12'),
+    month: parseFloat(localStorage.getItem('meta_month')|| '30'),
+    stopDay: parseFloat(localStorage.getItem('meta_stop')|| '2.5'),
+    trailing: parseFloat(localStorage.getItem('meta_trail')|| '0.3')
+  };
+
+  // Estado diario
+  let _dayStart = 0;          // saldo no inicio do dia
+  let _dayPeak  = 0;          // maior PnL do dia (para trailing)
+  let _dayPnl   = 0;          // PnL atual do dia em %
+  let _dayLocked = false;     // meta diaria travada (stop ou limite)
+  let _trailingActive = false;// trailing ativado (ja passou da meta)
+  let _dayDate = '';          // data atual para resetar diario
+
+  function saveMetas(){
+    _meta.day      = parseFloat(document.getElementById('cfgMetaDay')?.value  || 2);
+    _meta.week     = parseFloat(document.getElementById('cfgMetaWeek')?.value || 12);
+    _meta.month    = parseFloat(document.getElementById('cfgMetaMonth')?.value|| 30);
+    _meta.stopDay  = parseFloat(document.getElementById('cfgStopDay')?.value  || 2.5);
+    _meta.trailing = parseFloat(document.getElementById('cfgTrailing')?.value || 0.3);
+    localStorage.setItem('meta_day',   _meta.day);
+    localStorage.setItem('meta_week',  _meta.week);
+    localStorage.setItem('meta_month', _meta.month);
+    localStorage.setItem('meta_stop',  _meta.stopDay);
+    localStorage.setItem('meta_trail', _meta.trailing);
+    addLog('Metas salvas: dia='+_meta.day+'% semana='+_meta.week+'% mes='+_meta.month+'%');
+    showMetaBanner('Metas atualizadas!','ok',3000);
+  }
+
+  function showScreen(s){
+    _curScreen = s;
+    const main   = document.querySelector('.main-content, #mainContent, .dash-wrap');
+    const pnlScr = document.getElementById('pnlScreen');
+    const setupW = document.getElementById('setupWrap');
+    if(s==='pnl'){
+      if(main)    main.style.display='none';
+      if(setupW)  setupW.style.display='none';
+      if(pnlScr){ pnlScr.classList.add('show'); renderPnlScreen(); }
+      document.getElementById('cfgMetaDay')  && (document.getElementById('cfgMetaDay').value   = _meta.day);
+      document.getElementById('cfgMetaWeek') && (document.getElementById('cfgMetaWeek').value  = _meta.week);
+      document.getElementById('cfgMetaMonth')&& (document.getElementById('cfgMetaMonth').value = _meta.month);
+      document.getElementById('cfgStopDay')  && (document.getElementById('cfgStopDay').value   = _meta.stopDay);
+      document.getElementById('cfgTrailing') && (document.getElementById('cfgTrailing').value  = _meta.trailing);
+    } else {
+      if(main)    main.style.display='';
+      if(setupW)  setupW.style.display='';
+      if(pnlScr)  pnlScr.classList.remove('show');
+    }
+  }
+
+  function showMetaBanner(msg, type, dur){
+    const b = document.getElementById('dailyBanner');
+    if(!b) return;
+    b.textContent = msg;
+    b.className = 'daily-banner show '+type;
+    if(dur) setTimeout(()=>b.classList.remove('show'), dur);
+  }
+
+  // Registra trade fechado no historico
+  function recordTrade(symbol, side, entryPrice, exitPrice, qty, pnlPct, pnlUsdt){
+    const trade = {
+      id: Date.now(), ts: new Date().toISOString(),
+      symbol, side, entryPrice, exitPrice, qty,
+      pnlPct: parseFloat(pnlPct.toFixed(3)),
+      pnlUsdt: parseFloat(pnlUsdt.toFixed(4))
+    };
+    _pnlStore.unshift(trade);
+    if(_pnlStore.length > 500) _pnlStore.pop();
+    localStorage.setItem('pnl_trades', JSON.stringify(_pnlStore));
+  }
+
+  function filterPnl(f, btn){
+    _pnlFilter = f;
+    document.querySelectorAll('.pnl-nav-btn').forEach(b=>b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    renderPnlTable();
+  }
+
+  function renderPnlTable(){
+    const c = document.getElementById('pnlHistContainer');
+    if(!c) return;
+    const now  = new Date();
+    const todayStr  = now.toISOString().slice(0,10);
+    const weekAgo   = new Date(now - 7*864e5).toISOString();
+    const monthAgo  = new Date(now - 30*864e5).toISOString();
+    let trades = _pnlStore;
+    if(_pnlFilter==='today') trades = trades.filter(t=>t.ts.slice(0,10)===todayStr);
+    if(_pnlFilter==='week')  trades = trades.filter(t=>t.ts>=weekAgo);
+    if(_pnlFilter==='month') trades = trades.filter(t=>t.ts>=monthAgo);
+    const cnt = document.getElementById('pnlHistCount');
+    if(cnt) cnt.textContent = trades.length+' trades';
+    if(!trades.length){
+      c.innerHTML='<div class="pnl-empty">Nenhum trade neste periodo</div>';
+      return;
+    }
+    const totalPnl = trades.reduce((s,t)=>s+t.pnlUsdt,0);
+    const wins = trades.filter(t=>t.pnlPct>0).length;
+    const wr = Math.round(wins/trades.length*100);
+    c.innerHTML = `
+      <div style="display:flex;gap:16px;padding:8px 12px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px;color:var(--muted)">
+        <span>Total: <b class="${totalPnl>=0?'pt-pos':'pt-neg'}">${totalPnl>=0?'+':''}${totalPnl.toFixed(3)} USDT</b></span>
+        <span>Win Rate: <b style="color:var(--text)">${wr}%</b></span>
+        <span>Trades: <b style="color:var(--text)">${trades.length}</b></span>
+      </div>
+      <table class="pnl-table">
+        <thead><tr><th>Par</th><th>Lado</th><th>Entrada</th><th>Saida</th><th>PnL%</th><th>PnL USDT</th><th>Hora</th></tr></thead>
+        <tbody>${trades.map(t=>`
+          <tr>
+            <td class="pt-sym">${t.symbol.replace('USDT','')}</td>
+            <td class="${t.side==='BUY'||t.side==='LONG'?'pt-side-long':'pt-side-short'}">${t.side}</td>
+            <td>${t.entryPrice?t.entryPrice.toFixed(5):'-'}</td>
+            <td>${t.exitPrice?t.exitPrice.toFixed(5):'-'}</td>
+            <td class="${t.pnlPct>=0?'pt-pos':'pt-neg'}">${t.pnlPct>=0?'+':''}${t.pnlPct}%</td>
+            <td class="${t.pnlUsdt>=0?'pt-pos':'pt-neg'}">${t.pnlUsdt>=0?'+':''}${t.pnlUsdt}</td>
+            <td style="color:var(--muted2)">${new Date(t.ts).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  function renderPnlScreen(){
+    updateMetaCards();
+    renderPnlTable();
+  }
+
+  function updateMetaCards(){
+    // PnL do dia
+    const todayStr = new Date().toISOString().slice(0,10);
+    const todayTrades = _pnlStore.filter(t=>t.ts.slice(0,10)===todayStr);
+    const weekAgo  = new Date(Date.now()-7*864e5).toISOString();
+    const monthAgo = new Date(Date.now()-30*864e5).toISOString();
+    const weekTrades  = _pnlStore.filter(t=>t.ts>=weekAgo);
+    const monthTrades = _pnlStore.filter(t=>t.ts>=monthAgo);
+
+    // Calcula pnl% com base no saldo inicial do dia
+    const startBal = _dayStart || window._lastBal || 3;
+    const dayUsdt  = todayTrades.reduce((s,t)=>s+t.pnlUsdt,0);
+    const weekUsdt = weekTrades.reduce((s,t)=>s+t.pnlUsdt,0);
+    const monUsdt  = monthTrades.reduce((s,t)=>s+t.pnlUsdt,0);
+    const dayPct   = startBal>0 ? (dayUsdt/startBal)*100 : 0;
+    const weekPct  = startBal>0 ? (weekUsdt/startBal)*100 : 0;
+    const monPct   = startBal>0 ? (monUsdt/startBal)*100 : 0;
+
+    function setCard(val, meta, progId, valId, stId, cardId, stLabel){
+      const pct = Math.min(Math.max(val/meta*100,0),100);
+      const prog = document.getElementById(progId);
+      const valEl = document.getElementById(valId);
+      const stEl  = document.getElementById(stId);
+      const card  = document.getElementById(cardId);
+      if(valEl){ valEl.textContent=(val>=0?'+':'')+val.toFixed(2)+'%'; valEl.className='mc-val '+(val>=0?'pos':'neg'); }
+      if(prog){ prog.style.width=pct+'%'; prog.className='mc-prog'+(val<0?' danger':pct>=100?' ':pct>70?' warn':''); }
+      if(card){ card.className='meta-card'+(val<0?' danger':pct>=100?' done':pct>70?' warn':''); }
+      if(stEl){ stEl.textContent = pct>=100 ? 'META ATINGIDA' : stLabel; stEl.className='mc-status '+(pct>=100?'ok':'run'); }
+    }
+
+    setCard(dayPct,  _meta.day,   'mcDayProg',  'mcDayVal',  'mcDaySt',  'mcDay',   _dayLocked?'TRAVADO':'RODANDO');
+    setCard(weekPct, _meta.week,  'mcWeekProg', 'mcWeekVal', 'mcWeekSt', 'mcWeek',  weekTrades.length+' trades');
+    setCard(monPct,  _meta.month, 'mcMonthProg','mcMonthVal','mcMonthSt','mcMonth', monthTrades.length+' trades');
+
+    const dayEl = document.getElementById('mcDayMeta');
+    if(dayEl) dayEl.textContent = 'Meta: '+_meta.day+'% | Stop: -'+_meta.stopDay+'%';
+  }
+
+  // ============================================================
+  // LOGICA PRINCIPAL: checagem de metas a cada ciclo
+  // ============================================================
+  async function checkDailyGoal(){
+    const todayStr = new Date().toISOString().slice(0,10);
+
+    // Reset diario
+    if(_dayDate !== todayStr){
+      _dayDate   = todayStr;
+      _dayPeak   = 0;
+      _dayLocked = false;
+      _trailingActive = false;
+      addLog('Novo dia: metas resetadas para '+todayStr);
+      try {
+        const rb = await fetch('/api/balance');
+        const db = await rb.json();
+        if(db.ok){ _dayStart = db.balance; window._lastBal = db.balance; }
+      } catch(e){}
+    }
+
+    if(!_dayStart || _dayStart<=0) return;
+    if(_dayLocked) return; // ja travado hoje
+
+    // Calcula PnL do dia
+    const todayTrades = _pnlStore.filter(t=>t.ts.slice(0,10)===todayStr);
+    const dayUsdt = todayTrades.reduce((s,t)=>s+t.pnlUsdt,0);
+    _dayPnl = (_dayStart > 0) ? (dayUsdt/_dayStart)*100 : 0;
+
+    // Atualiza peak
+    if(_dayPnl > _dayPeak) _dayPeak = _dayPnl;
+
+    // STOP DIARIO: PnL caiu abaixo de -stopDay%
+    if(_dayPnl <= -_meta.stopDay){
+      _dayLocked = true;
+      showMetaBanner('STOP DIARIO: -'+_meta.stopDay+'% atingido. Bot pausado pelo dia.','stop');
+      addLog('STOP DIARIO atingido (-'+_meta.stopDay+'%). Fechando posicoes e pausando.');
+      await closeAllPositions('STOP DIARIO');
+      if(typeof stopBot === 'function') stopBot();
+      return;
+    }
+
+    // META DIARIA atingida: PnL >= metaDay%
+    if(_dayPnl >= _meta.day && !_trailingActive){
+      _trailingActive = true;
+      showMetaBanner('META DIARIA atingida! +'+_dayPnl.toFixed(2)+'% - Trailing ativado. Bot continua...','ok', 8000);
+      addLog('META DIARIA '+_meta.day+'% atingida! PnL='+_dayPnl.toFixed(2)+'%. Trailing ativado.');
+    }
+
+    // TRAILING: se meta foi batida e PnL caiu (peak - trailing)%
+    if(_trailingActive && _dayPeak > _meta.day){
+      const trailTrigger = _dayPeak - _meta.trailing;
+      if(_dayPnl <= trailTrigger){
+        _dayLocked = true;
+        showMetaBanner('TRAILING: lucro garantido! +'+_dayPnl.toFixed(2)+'%. Fechando posicoes.','ok');
+        addLog('TRAILING ativado: peak='+_dayPeak.toFixed(2)+'% atual='+_dayPnl.toFixed(2)+'%. Fechando tudo.');
+        await closeAllPositions('TRAILING STOP');
+      }
+    }
+
+    // Atualiza cards se tela PnL visivel
+    if(_curScreen==='pnl') updateMetaCards();
+  }
+
+  // Fecha todas as posicoes abertas do bot (S.pos)
+  async function closeAllPositions(reason){
+    addLog('Fechando todas as posicoes: '+reason);
+    if(!window.S || !window.S.pos) return;
+    const pairs = Object.keys(window.S.pos);
+    for(const sym of pairs){
+      const pos = window.S.pos[sym];
+      if(!pos) continue;
+      try {
+        const r = await fetch('/api/order/sell',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({symbol:sym, quantity:pos.qty})});
+        const d = await r.json();
+        if(d.ok){
+          const pnl = pos.entry>0 ? ((pos.last||pos.entry)-pos.entry)/pos.entry*100 : 0;
+          recordTrade(sym,'SELL',pos.entry,pos.last||pos.entry,pos.qty,pnl,pnl/100*(pos.entry*pos.qty));
+          delete window.S.pos[sym];
+          addLog('Fechado: '+sym+' | PnL='+pnl.toFixed(2)+'%');
+        }
+      } catch(e){ addLog('Erro fechar '+sym+': '+e.message); }
+    }
+  }
+
+  // Intercepta o ciclo do bot para checar metas
+  const _origBotTick = window.botTick;
+  window.botTick = async function(){
+    await checkDailyGoal();
+    if(_dayLocked) return; // nao opera se travado
+    if(typeof _origBotTick === 'function') await _origBotTick();
+  };
+
+  // Checa metas a cada 30s independente do loop
+  setInterval(checkDailyGoal, 30000);
+
+  // ============================================================
+  // CORRECAO: "Insufficient Position" - checa saldo antes de comprar
+  // ============================================================
+  const _origOpenPos = window.openPos;
+  window.openPos = async function(sym, amt){
+    // Verifica saldo disponivel antes de tentar comprar
+    try {
+      const rb = await fetch('/api/balance');
+      const db = await rb.json();
+      const bal = db.ok ? db.balance : 0;
+      window._lastBal = bal;
+
+      // Precisa de amt + 5% de margem
+      const needed = parseFloat(amt) * 1.05;
+      if(bal < needed){
+        addLog('Saldo insuficiente: $'+bal.toFixed(2)+' < $'+needed.toFixed(2)+' ('+sym+') - pulando');
+        return false;
+      }
+
+      // Verifica se ja tem posicao aberta nesse par
+      if(window.S && window.S.pos && window.S.pos[sym]){
+        addLog(sym+' ja tem posicao aberta - pulando');
+        return false;
+      }
+
+      // Verifica se o stop diario esta ativo
+      if(_dayLocked){
+        addLog('Meta/Stop diario ativo - nao abre novas posicoes');
+        return false;
+      }
+
+    } catch(e){ console.warn('check saldo err:', e); }
+
+    // Executa compra original
+    if(typeof _origOpenPos === 'function') return await _origOpenPos(sym, amt);
+  };
+
+  // Hook: quando closePos e chamado, registra o trade
+  const _origClosePos = window.closePos;
+  window.closePos = async function(sym, reason){
+    const pos = window.S && window.S.pos && window.S.pos[sym];
+    let entryP = 0, exitP = 0, qty = 0;
+    if(pos){ entryP = pos.entry || 0; qty = pos.qty || 0; }
+
+    const result = typeof _origClosePos === 'function' ? await _origClosePos(sym, reason) : null;
+
+    // Busca preco atual para calcular PnL
+    try {
+      const rp = await fetch('/api/price?symbol='+sym);
+      const dp = await rp.json();
+      exitP = dp.ok ? dp.price : entryP;
+      const pnlPct  = entryP>0 ? (exitP-entryP)/entryP*100 : 0;
+      const pnlUsdt = entryP>0 && qty>0 ? (exitP-entryP)*qty : 0;
+      recordTrade(sym, 'SELL', entryP, exitP, qty, pnlPct, pnlUsdt);
+      if(_curScreen==='pnl') renderPnlTable();
+    } catch(e){}
+
+    return result;
+  };
+
+  // Inicializa campos das metas
+  window.addEventListener('load',()=>{
+    ['cfgMetaDay','cfgMetaWeek','cfgMetaMonth','cfgStopDay','cfgTrailing'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el){
+        const map={cfgMetaDay:'day',cfgMetaWeek:'week',cfgMetaMonth:'month',cfgStopDay:'stopDay',cfgTrailing:'trailing'};
+        el.value = _meta[map[id]];
+      }
+    });
+  });
+
 </script>
 </body>
 </html>
