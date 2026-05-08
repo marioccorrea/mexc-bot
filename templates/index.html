@@ -349,7 +349,34 @@ canvas#ch{width:100%;height:130px;display:block;}
     .meta-input-grp label{font-family:var(--mono);font-size:10px;color:var(--muted2)}
     .meta-input-grp input{padding:6px 8px;background:var(--s1);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:12px;width:100%;box-sizing:border-box}
     .meta-input-grp input:focus{outline:none;border-color:var(--green)}
-  </style>
+  
+    .goal-bar{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-bottom:10px}
+    .goal-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+    .goal-label{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.5px}
+    .goal-val.pos{color:var(--green)} .goal-val.neg{color:var(--red)} .goal-val.warn{color:var(--yellow)}
+    .goal-val{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)}
+    .goal-progress{height:5px;border-radius:3px;background:rgba(255,255,255,0.07);overflow:hidden;margin:4px 0}
+    .goal-fill{height:100%;border-radius:3px;transition:width .5s;background:var(--green)}
+    .goal-fill.danger{background:var(--red)} .goal-fill.warn{background:var(--yellow)}
+    .goal-stopped{background:rgba(255,140,0,0.12);border:1px solid rgba(255,140,0,0.3);border-radius:5px;
+      padding:6px 10px;font-family:var(--mono);font-size:10px;color:var(--orange);text-align:center;margin-top:6px;display:none}
+    .goal-stopped.show{display:block}
+    .pnl-tabs{display:flex;border-bottom:1px solid var(--border)}
+    .pnl-tab{flex:1;padding:7px;font-family:var(--mono);font-size:10px;font-weight:700;text-align:center;
+      cursor:pointer;color:var(--muted);border:none;background:none;letter-spacing:.5px}
+    .pnl-tab.active{color:var(--green);border-bottom:2px solid var(--green);margin-bottom:-1px}
+    .pnl-grid{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--border)}
+    .pnl-cell{padding:8px;text-align:center;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .pnl-cell:nth-child(3n){border-right:none}
+    .pnl-cell-label{font-size:9px;color:var(--muted2);font-family:var(--mono);margin-bottom:3px;letter-spacing:.5px}
+    .pnl-cell-val{font-size:13px;font-weight:700;font-family:var(--mono)}
+    .pnl-cell-val.pos{color:var(--green)} .pnl-cell-val.neg{color:var(--red)} .pnl-cell-val.neu{color:var(--text)}
+    .meta-cfg{padding:8px 12px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .meta-item{display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;color:var(--muted)}
+    .meta-item input{width:44px;padding:2px 5px;background:var(--s2,#0d1117);border:1px solid var(--border);
+      border-radius:3px;color:var(--text);font-family:var(--mono);font-size:10px;text-align:center}
+    .meta-item .unit{color:var(--muted2);font-size:9px}
+</style>
 </head>
 <body>
 <div class="app">
@@ -597,6 +624,54 @@ canvas#ch{width:100%;height:130px;display:block;}
         <div class="fut-bal" id="futBalInfo">Saldo Futures: carregando...</div>
         <div class="pos-grid" id="posGrid">
           <div class="pos-empty">Nenhuma posicao aberta</div>
+        </div>
+      </div>
+      
+      <!-- META DIARIA + PNL -->
+      <div class="panel" id="goalPanel">
+        <div class="ph"><span class="pt">META DIARIA</span><span class="pb" id="goalStatus">Aguardando...</span></div>
+        <div style="padding:10px 12px">
+          <div class="goal-bar">
+            <div class="goal-row">
+              <span class="goal-label">PNL HOJE</span>
+              <span class="goal-val neu" id="goalPnlPct">+0.00%</span>
+            </div>
+            <div class="goal-progress"><div class="goal-fill" id="goalFill" style="width:0%"></div></div>
+            <div class="goal-row" style="margin-bottom:0;margin-top:2px">
+              <span style="font-family:var(--mono);font-size:9px;color:var(--muted2)">Meta: <span id="goalTarget">2.0%</span></span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--muted2)">PnL: <span id="goalPnlUsdt" style="color:var(--text)">$0.00</span></span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--muted2)">Stop: -<span id="goalStopVal">2.5%</span></span>
+            </div>
+            <div class="goal-stopped" id="goalStopped">BOT PARADO - Meta garantida!</div>
+          </div>
+          <div class="meta-cfg">
+            <div class="meta-item"><span>Meta/dia</span><input type="number" id="cfgDailyGoal" value="2.0" min="0.1" max="50" step="0.1"><span class="unit">%</span></div>
+            <div class="meta-item"><span>Stop/dia</span><input type="number" id="cfgDailyStop" value="2.5" min="0.1" max="50" step="0.1"><span class="unit">%</span></div>
+            <div class="meta-item"><span>Meta sem.</span><input type="number" id="cfgWeeklyGoal" value="12" min="1" max="200" step="1"><span class="unit">%</span></div>
+            <div class="meta-item"><span>Meta mes</span><input type="number" id="cfgMonthlyGoal" value="30" min="1" max="500" step="1"><span class="unit">%</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- PNL HISTORICO -->
+      <div class="panel" id="pnlHistPanel">
+        <div class="ph"><span class="pt">PNL & PERFORMANCE</span><span class="pb" id="pnlSub">carregando...</span></div>
+        <div class="pnl-tabs">
+          <button class="pnl-tab active" onclick="showPnlTab('day')">HOJE</button>
+          <button class="pnl-tab" onclick="showPnlTab('week')">SEMANA</button>
+          <button class="pnl-tab" onclick="showPnlTab('month')">MES</button>
+          <button class="pnl-tab" onclick="showPnlTab('all')">TOTAL</button>
+        </div>
+        <div class="pnl-grid">
+          <div class="pnl-cell"><div class="pnl-cell-label">PNL $</div><div class="pnl-cell-val neu" id="pnlValMain">$0.00</div></div>
+          <div class="pnl-cell"><div class="pnl-cell-label">PNL %</div><div class="pnl-cell-val neu" id="pnlPctMain">0.00%</div></div>
+          <div class="pnl-cell"><div class="pnl-cell-label">TRADES</div><div class="pnl-cell-val neu" id="pnlTradesMain">0</div></div>
+          <div class="pnl-cell"><div class="pnl-cell-label">WIN RATE</div><div class="pnl-cell-val neu" id="pnlWinRate">0%</div></div>
+          <div class="pnl-cell"><div class="pnl-cell-label">MELHOR</div><div class="pnl-cell-val pos" id="pnlBest">$0.00</div></div>
+          <div class="pnl-cell"><div class="pnl-cell-label">PIOR</div><div class="pnl-cell-val neg" id="pnlWorst">$0.00</div></div>
+        </div>
+        <div style="padding:8px 12px">
+          <div class="goal-row"><span class="goal-label" id="pnlGoalLabel">META SEMANAL</span><span class="goal-val neu" id="pnlGoalPct">0 / 12%</span></div>
+          <div class="goal-progress"><div class="goal-fill" id="pnlGoalFill" style="width:0%"></div></div>
         </div>
       </div>
       <!-- CARTEIRA REAL MEXC -->
@@ -863,6 +938,19 @@ function onDashZf(el){
 
 //  Start / Stop 
 function startBot(){
+    _dailyGoalHit=false; _passedGoal=false; checkDayReset();
+    setTimeout(async()=>{
+      try{
+        const _r=await fetch('/api/balance'); const _d=await _r.json();
+        if(_d.ok&&_d.balance>0){
+          const today=getTodayKey(), stored=parseFloat(localStorage.getItem('dayStartBal_'+today)||'0');
+          if(stored<=0){_dayStartBalance=_d.balance; localStorage.setItem('dayStartBal_'+today,_d.balance);}
+          else _dayStartBalance=stored;
+          updateDailyGoalBar(_d.balance);
+        }
+      }catch(e){}
+    },2500);
+    
   const dashOn=$('dash').style.display==='block';
   if(!dashOn){
     S.cfg={
@@ -1803,6 +1891,153 @@ checkExits=function(){
       }
     });
   });
+
+
+// ===== METAS DIARIAS / PNL / CORRECOES =====
+let _dailyGoalHit = false;
+let _dayStartBalance = 0;
+let _passedGoal = false;
+let _pnlTab = 'day';
+const _pnlStore = JSON.parse(localStorage.getItem('mexc_pnl2')||'{"trades":[]}');
+const savePnl = ()=>{ try{localStorage.setItem('mexc_pnl2',JSON.stringify(_pnlStore));}catch(e){} };
+const getTodayKey = ()=>new Date().toISOString().split('T')[0];
+const getWeekKey = ()=>{ const d=new Date(),day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1); return new Date(d.setDate(diff)).toISOString().split('T')[0]; };
+const getMonthKey = ()=>{ const d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2,'0'); };
+
+function recordTrade(pnlUsdt, pnlPct, symbol, side){
+  _pnlStore.trades.push({date:getTodayKey(),ts:Date.now(),pnl:pnlUsdt,pct:pnlPct,symbol,side});
+  savePnl(); updatePnlPanel(); checkDailyGoal();
+}
+
+function getFilteredTrades(period){
+  const today=getTodayKey(), weekStart=getWeekKey(), monthKey=getMonthKey();
+  return _pnlStore.trades.filter(t=>{
+    if(period==='day') return t.date===today;
+    if(period==='week') return t.date>=weekStart;
+    if(period==='month') return t.date.startsWith(monthKey);
+    return true;
+  });
+}
+
+function calcStats(trades){
+  if(!trades.length) return {pnl:0,pct:0,wins:0,winRate:0,best:0,worst:0,count:0};
+  const pnl=trades.reduce((s,t)=>s+t.pnl,0);
+  const pct=trades.reduce((s,t)=>s+(t.pct||0),0);
+  const wins=trades.filter(t=>t.pnl>0).length;
+  return {pnl,pct,wins,winRate:Math.round(wins/trades.length*100),
+          best:Math.max(...trades.map(t=>t.pnl)),worst:Math.min(...trades.map(t=>t.pnl)),count:trades.length};
+}
+
+function showPnlTab(tab){
+  _pnlTab=tab;
+  document.querySelectorAll('.pnl-tab').forEach((b,i)=>b.classList.toggle('active',['day','week','month','all'][i]===tab));
+  updatePnlPanel();
+}
+
+function updatePnlPanel(){
+  const trades=getFilteredTrades(_pnlTab), st=calcStats(trades);
+  const fmt=(v,isUsd)=>isUsd?(v>=0?'+$'+v.toFixed(3):'-$'+Math.abs(v).toFixed(3)):(v>=0?'+'+v.toFixed(2)+'%':v.toFixed(2)+'%');
+  const cls=v=>v>0?'pos':v<0?'neg':'neu';
+  const wGoal=parseFloat(document.getElementById('cfgWeeklyGoal')?.value||12);
+  const mGoal=parseFloat(document.getElementById('cfgMonthlyGoal')?.value||30);
+  const dGoal=parseFloat(document.getElementById('cfgDailyGoal')?.value||2);
+  const set=(id,txt,c)=>{ const el=document.getElementById(id); if(el){el.textContent=txt; if(c)el.className='pnl-cell-val '+c;} };
+  set('pnlValMain',fmt(st.pnl,true),cls(st.pnl));
+  set('pnlPctMain',fmt(st.pct,false),cls(st.pct));
+  set('pnlTradesMain',st.count,'neu');
+  set('pnlWinRate',st.winRate+'%',st.winRate>=50?'pos':'neg');
+  set('pnlBest',fmt(st.best,true),'pos');
+  set('pnlWorst',fmt(st.worst,true),'neg');
+  const sub=document.getElementById('pnlSub');
+  if(sub) sub.textContent=st.count+' trades / '+fmt(st.pnl,true);
+  // Progress vs meta
+  const target=_pnlTab==='week'?wGoal:_pnlTab==='month'?mGoal:dGoal;
+  const label=_pnlTab==='week'?'META SEMANAL ('+wGoal+'%)':_pnlTab==='month'?'META MENSAL ('+mGoal+'%)':'META DIARIA ('+dGoal+'%)';
+  const prog=Math.min(100,Math.max(0,st.pct/target*100));
+  const lEl=document.getElementById('pnlGoalLabel'), pEl=document.getElementById('pnlGoalPct'), fEl=document.getElementById('pnlGoalFill');
+  if(lEl) lEl.textContent=label;
+  if(pEl) pEl.textContent=st.pct.toFixed(2)+'% / '+target+'%'; pEl && (pEl.className='goal-val '+cls(st.pct));
+  if(fEl){ fEl.style.width=prog+'%'; fEl.className='goal-fill'+(prog>=100?' warn':''); }
+}
+
+function updateDailyGoalBar(balance){
+  const dGoal=parseFloat(document.getElementById('cfgDailyGoal')?.value||2);
+  const dStop=parseFloat(document.getElementById('cfgDailyStop')?.value||2.5);
+  const tEl=document.getElementById('goalTarget'), sEl=document.getElementById('goalStopVal');
+  if(tEl) tEl.textContent=dGoal.toFixed(1)+'%';
+  if(sEl) sEl.textContent=dStop.toFixed(1)+'%';
+  if(!_dayStartBalance||_dayStartBalance<=0){
+    const stored=parseFloat(localStorage.getItem('dayStartBal_'+getTodayKey())||'0');
+    _dayStartBalance=stored>0?stored:balance;
+    if(_dayStartBalance>0) localStorage.setItem('dayStartBal_'+getTodayKey(),_dayStartBalance);
+  }
+  if(!_dayStartBalance||_dayStartBalance<=0) return;
+  const pnlUsdt=balance-_dayStartBalance;
+  const pnlPct=(pnlUsdt/_dayStartBalance)*100;
+  const pEl=document.getElementById('goalPnlPct'), fEl=document.getElementById('goalFill');
+  const uEl=document.getElementById('goalPnlUsdt'), stEl=document.getElementById('goalStatus');
+  if(pEl){ const s=pnlPct>=0?'+':''; pEl.textContent=s+pnlPct.toFixed(2)+'%'; pEl.className='goal-val '+(pnlPct>0?'pos':pnlPct<0?'neg':'neu'); }
+  if(uEl){ uEl.textContent=(pnlUsdt>=0?'+$':'-$')+Math.abs(pnlUsdt).toFixed(3); }
+  const prog=Math.min(100,Math.max(0,(pnlPct/dGoal)*100));
+  if(fEl){ fEl.style.width=prog+'%'; fEl.className='goal-fill'+(pnlPct<=-dStop*0.5?'danger':prog>=100?'warn':''); }
+  if(stEl&&!_dailyGoalHit){
+    if(pnlPct<0) stEl.textContent='Perda: '+pnlPct.toFixed(2)+'% / stop -'+dStop+'%';
+    else stEl.textContent=pnlPct.toFixed(2)+'% de '+dGoal+'% meta';
+  }
+}
+
+function checkGoalOnTick(pnlPct){
+  if(_dailyGoalHit||!_isRunning) return false;
+  const dGoal=parseFloat(document.getElementById('cfgDailyGoal')?.value||2);
+  const dStop=parseFloat(document.getElementById('cfgDailyStop')?.value||2.5);
+  // Stop loss do dia
+  if(pnlPct<=-dStop){
+    addLog('STOP LOSS DIARIO: '+pnlPct.toFixed(2)+'% <= -'+dStop+'%');
+    closeAllAndStop('Stop loss diario (-'+dStop+'%)'); return true;
+  }
+  // Garantia de lucro: se passou da meta e voltou abaixo, para
+  if(pnlPct>=dGoal && !_passedGoal){ _passedGoal=true; addLog('Meta '+dGoal+'% atingida! Monitorando...'); }
+  if(_passedGoal && pnlPct<dGoal && pnlPct>0){
+    addLog('Garantindo lucro: '+pnlPct.toFixed(2)+'% (voltou de acima de '+dGoal+'%)');
+    closeAllAndStop('Meta diaria garantida: +'+pnlPct.toFixed(2)+'%'); return true;
+  }
+  return false;
+}
+
+function checkDailyGoal(){
+  const trades=getFilteredTrades('day'), st=calcStats(trades);
+  const dStop=parseFloat(document.getElementById('cfgDailyStop')?.value||2.5);
+  if(st.pct<=-dStop && _isRunning){ closeAllAndStop('Stop loss diario'); return; }
+}
+
+async function closeAllAndStop(reason){
+  _dailyGoalHit=true;
+  const el=document.getElementById('goalStopped');
+  if(el){ el.textContent='BOT PARADO - '+reason; el.classList.add('show'); }
+  const stEl=document.getElementById('goalStatus'); if(stEl) stEl.textContent='PARADO - '+reason;
+  // Fecha todas as posicoes abertas
+  if(window.S&&window.S.pos){
+    for(const sym of Object.keys(window.S.pos)){
+      try{ const pos=window.S.pos[sym]; if(pos&&pos.qty){ await closePos(sym,pos.qty,reason); await new Promise(r=>setTimeout(r,300)); } }catch(e){}
+    }
+  }
+  stopBot();
+}
+
+function checkDayReset(){
+  const today=getTodayKey(), last=localStorage.getItem('lastBotDay2');
+  if(last!==today){
+    localStorage.setItem('lastBotDay2',today);
+    _dailyGoalHit=false; _passedGoal=false; _dayStartBalance=0;
+    const el=document.getElementById('goalStopped'); if(el) el.classList.remove('show');
+    if(last) addLog('Novo dia ('+today+'): metas resetadas');
+  }
+}
+
+// Init
+checkDayReset();
+setInterval(checkDayReset,60000);
+setTimeout(updatePnlPanel,1000);
 
 </script>
 </body>
