@@ -304,7 +304,7 @@ canvas#ch{width:100%;height:130px;display:block;}
 <!-- HEADER -->
 <header class="hdr">
   <div class="logo">
-    <div class="logo-icon">ð¤</div>
+    <div class="logo-icon">ð</div>
 
   <div id="futCfg" class="fut-cfg">
     <div class="fut-cfg-title">CONFIGURACAO FUTURES</div>
@@ -351,8 +351,8 @@ canvas#ch{width:100%;height:130px;display:block;}
     </div>
   </div>
     <div>
-      <div class="logo-text">MEXCÂ·BOT</div>
-      <div class="logo-sub">TRADING AUTOMÁTICO</div>
+      <div class="logo-text">MEXCBOT</div>
+      <div class="logo-sub">TRADING AUTOMÁTICO</div>
     </div>
   </div>
   <div class="hdr-right">
@@ -374,23 +374,23 @@ canvas#ch{width:100%;height:130px;display:block;}
 <!-- MODAL CONTA -->
 <div class="overlay" id="modal">
   <div class="modal">
-    <button class="modal-x" onclick="closeModal()">â</button>
-    <div class="modal-title">ð Conta MEXC</div>
+    <button class="modal-x" onclick="closeModal()"></button>
+    <div class="modal-title">ð Conta MEXC</div>
     <div class="modal-sub">Verifique a conexão com sua conta. Suas chaves ficam seguras no servidor.</div>
     <div class="sc">
-      <div class="sc-row"><span class="sc-lbl">CONEXÁO</span><span class="bdg none" id="mConn">NÁO VERIFICADA</span></div>
-      <div class="sc-row"><span class="sc-lbl">TIPO</span><span class="bdg none" id="mType">â</span></div>
-      <div class="sc-row"><span class="sc-lbl">SALDO USDT</span><span class="sc-val" id="mBal" style="color:var(--green)">â</span></div>
-      <div class="sc-row"><span class="sc-lbl">PATRIMÁNIO</span><span class="sc-val" id="mEq" style="color:var(--muted2)">â</span></div>
+      <div class="sc-row"><span class="sc-lbl">CONEXÁO</span><span class="bdg none" id="mConn">NÁO VERIFICADA</span></div>
+      <div class="sc-row"><span class="sc-lbl">TIPO</span><span class="bdg none" id="mType"></span></div>
+      <div class="sc-row"><span class="sc-lbl">SALDO USDT</span><span class="sc-val" id="mBal" style="color:var(--green)"></span></div>
+      <div class="sc-row"><span class="sc-lbl">PATRIMÁNIO</span><span class="sc-val" id="mEq" style="color:var(--muted2)"></span></div>
       <div class="sc-row"><span class="sc-lbl">VERIFICADO EM</span><span class="sc-val" id="mTime" style="color:var(--muted2);font-size:10px">Nunca</span></div>
     </div>
-    <button class="modal-btn" id="verBtn" onclick="doVerify()">ð VERIFICAR SALDO AGORA</button>
+    <button class="modal-btn" id="verBtn" onclick="doVerify()">ð VERIFICAR SALDO AGORA</button>
     <div class="err-box" id="mErr"></div>
     <div class="ok-box" id="mOk"></div>
     <div class="hint">
-      ð Chaves configuradas nas variáveis do Render (MEXC_API_KEY / MEXC_API_SECRET)<br>
-      ð Nunca expostas no browser Â· Servidor faz as chamadas direto Á  MEXC<br>
-      ð± Acesse de qualquer dispositivo pelo link do Render
+      ð Chaves configuradas nas variáveis do Render (MEXC_API_KEY / MEXC_API_SECRET)<br>
+      ð Nunca expostas no browser  Servidor faz as chamadas direto Á MEXC<br>
+      ð Acesse de qualquer dispositivo pelo link do Render
     </div>
   </div>
 </div>
@@ -399,18 +399,18 @@ canvas#ch{width:100%;height:130px;display:block;}
 <div class="setup" id="setup">
   <div class="setup-card">
     <div class="setup-title">Configure seu<br><span>Robô de Trading</span></div>
-    <div class="setup-sub">Escolha o modo, ajuste os parâmetros e inicie. Comece em Simulação para aprender sem risco.</div>
+    <div class="setup-sub">Escolha o modo, ajuste os parmetros e inicie. Comece em Simulação para aprender sem risco.</div>
 
     <!-- MODO -->
-    <div class="form-lbl" style="margin-bottom:10px">MODO DE OPERAÁÁO</div>
+    <div class="form-lbl" style="margin-bottom:10px">MODO DE OPERAÁÁO</div>
     <div class="modes">
       <div class="mode active-sim" id="btnSim" onclick="setMode('sim')">
-        <div class="mode-ico">ð¡ï¸</div>
+        <div class="mode-ico">ðï</div>
         <div class="mode-name">Simulação</div>
-        <div class="mode-desc">Sem risco Â· Grátis</div>
+        <div class="mode-desc">Sem risco  Grátis</div>
       </div>
       <div class="mode" id="btnLive" onclick="setMode('live')">
-        <div class="mode-ico">â¡</div>
+        <div class="mode-ico"></div>
         <div class="mode-name">Conta Real</div>
         <div class="mode-desc">API key da MEXC</div>
       </div>
@@ -418,27 +418,27 @@ canvas#ch{width:100%;height:130px;display:block;}
 
     <!-- PAINEL CONTA REAL -->
     <div class="live-panel" id="livePanel">
-      <div class="live-panel-title">â¡ CREDENCIAIS DA CONTA REAL</div>
+      <div class="live-panel-title"> CREDENCIAIS DA CONTA REAL</div>
       <div class="inp-wrap">
-        <label class="inp-lbl">API KEY <span id="kBdg" style="display:none" class="svd">â SALVA</span></label>
+        <label class="inp-lbl">API KEY <span id="kBdg" style="display:none" class="svd"> SALVA</span></label>
         <input class="inp" id="lKey" type="password" placeholder="mx-xxxxxxxxxxxxxxxx...">
-        <button class="eye" onclick="toggleEye('lKey','e1')" id="e1">ð</button>
+        <button class="eye" onclick="toggleEye('lKey','e1')" id="e1">ð</button>
       </div>
       <div class="inp-wrap">
-        <label class="inp-lbl">API SECRET <span id="sBdg" style="display:none" class="svd">â SALVA</span></label>
-        <input class="inp" id="lSec" type="password" placeholder="â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢">
-        <button class="eye" onclick="toggleEye('lSec','e2')" id="e2">ð</button>
+        <label class="inp-lbl">API SECRET <span id="sBdg" style="display:none" class="svd"> SALVA</span></label>
+        <input class="inp" id="lSec" type="password" placeholder="">
+        <button class="eye" onclick="toggleEye('lSec','e2')" id="e2">ð</button>
       </div>
-      <button class="test-btn" id="testBtn" onclick="testCreds()">ð TESTAR CONEXÁO</button>
+      <button class="test-btn" id="testBtn" onclick="testCreds()">ð TESTAR CONEXÁO</button>
       <div class="test-result" id="testRes"></div>
       <div class="api-hint">
-        â¹ï¸ MEXC â Perfil â API Management â Criar API<br>
-        â Permissões: Leitura de conta + Trade Spot
+        ï MEXC  Perfil  API Management  Criar API<br>
+         Permissões: Leitura de conta + Trade Spot
       </div>
     </div>
 
     <!-- ZERO FEE -->
-    <div class="form-lbl" style="margin-bottom:8px">PARES DE NEGOCIAÁÁO</div>
+    <div class="form-lbl" style="margin-bottom:8px">PARES DE NEGOCIAÁÁO</div>
     <div class="fee-row">
       <label class="tog"><input type="checkbox" id="zfChk" onchange="syncZf()"><span class="tog-s"></span></label>
       <span class="fee-lbl">Apenas Zero Taxa <strong>(0% fee)</strong></span>
@@ -455,7 +455,7 @@ canvas#ch{width:100%;height:130px;display:block;}
         </div>
       </div>
       <div class="form-group">
-        <label class="form-lbl">MÁX. POSIÁÁES</label>
+        <label class="form-lbl">MÁX. POSIÁÁES</label>
         <div class="range-row">
           <input type="range" class="slider" id="sMax" min="1" max="10" value="3" step="1" oninput="$('sMaxV').textContent=this.value">
           <span class="range-val" id="sMaxV">3</span>
@@ -479,27 +479,27 @@ canvas#ch{width:100%;height:130px;display:block;}
       </div>
     </div>
     <div class="form-group">
-      <label class="form-lbl">ESTRATÁGIA</label>
+      <label class="form-lbl">ESTRATÁGIA</label>
       <select class="form-input" id="sStrat">
-        <option value="balanced">âï¸ Balanceada â RSI + MACD + Bollinger (recomendada)</option>
-        <option value="conservative">ð¢ Conservadora â Poucos trades, mais certeza</option>
-        <option value="aggressive">â¡ Agressiva â Mais trades, mais risco</option>
-        <option value="scalping">ð¥ Scalping â Ganhos rápidos e pequenos</option>
+        <option value="balanced">ï Balanceada  RSI + MACD + Bollinger (recomendada)</option>
+        <option value="conservative">ð Conservadora  Poucos trades, mais certeza</option>
+        <option value="aggressive"> Agressiva  Mais trades, mais risco</option>
+        <option value="scalping">ð Scalping  Ganhos rápidos e pequenos</option>
       </select>
     </div>
 
-    <button class="go-btn" onclick="startBot()">ð INICIAR BOT</button>
-    <div class="warn">â ï¸ Trading envolve risco de perda. Comece sempre em Simulação. Nunca invista mais do que pode perder.</div>
+    <button class="go-btn" onclick="startBot()">ð INICIAR BOT</button>
+    <div class="warn">ï Trading envolve risco de perda. Comece sempre em Simulação. Nunca invista mais do que pode perder.</div>
   </div>
 </div>
 
 <!-- DASHBOARD -->
 <div class="dash" id="dash">
   <div class="metrics">
-    <div class="mc"><div class="mc-lbl">SALDO USDT</div><div class="mc-val g" id="dBal">â</div><div class="mc-sub" id="dBalSub">â</div></div>
+    <div class="mc"><div class="mc-lbl">SALDO USDT</div><div class="mc-val g" id="dBal"></div><div class="mc-sub" id="dBalSub"></div></div>
     <div class="mc"><div class="mc-lbl">PnL TOTAL</div><div class="mc-val g" id="dPnl">+$0,00</div><div class="mc-sub" id="dPnlSub">0 trades</div></div>
-    <div class="mc"><div class="mc-lbl">WIN RATE</div><div class="mc-val y" id="dWr">â</div><div class="mc-sub">Trades ganhos</div></div>
-    <div class="mc"><div class="mc-lbl">POSIÁÁES</div><div class="mc-val b" id="dPos">0/3</div><div class="mc-sub" id="dPosSub">â</div></div>
+    <div class="mc"><div class="mc-lbl">WIN RATE</div><div class="mc-val y" id="dWr"></div><div class="mc-sub">Trades ganhos</div></div>
+    <div class="mc"><div class="mc-lbl">POSIÁÁES</div><div class="mc-val b" id="dPos">0/3</div><div class="mc-sub" id="dPosSub"></div></div>
     <div class="mc"><div class="mc-lbl">UPTIME</div><div class="mc-val p" id="dUp">00:00:00</div><div class="mc-sub" id="dCyc">0 ciclos</div></div>
   </div>
 
@@ -508,7 +508,7 @@ canvas#ch{width:100%;height:130px;display:block;}
       <!-- CHART -->
       <div class="panel">
         <div class="ph">
-          <span class="pt">PREÁO AO VIVO</span>
+          <span class="pt">PREÁO AO VIVO</span>
           <div class="syms">
             <button class="sym active" onclick="switchChart('BTCUSDT',this)">BTC</button>
             <button class="sym" onclick="switchChart('ETHUSDT',this)">ETH</button>
@@ -519,16 +519,16 @@ canvas#ch{width:100%;height:130px;display:block;}
         </div>
         <div class="chart-wrap">
           <div class="price-row">
-            <div class="big-price" id="cP">â</div>
-            <div class="chg-tag up" id="cC">â</div>
+            <div class="big-price" id="cP"></div>
+            <div class="chg-tag up" id="cC"></div>
             <span id="cZf"></span>
           </div>
           <canvas id="ch"></canvas>
         </div>
         <div class="inds">
-          <div><div class="ind-l">RSI (14)</div><div class="ind-v" id="iRsi" style="color:var(--yellow)">â</div><div class="ind-b"><div class="ind-f" id="iRsiB" style="width:50%;background:var(--yellow)"></div></div></div>
-          <div><div class="ind-l">MACD</div><div class="ind-v" id="iMacd" style="color:var(--green)">â</div><div class="ind-b"><div class="ind-f" id="iMacdB" style="width:60%;background:var(--green)"></div></div></div>
-          <div><div class="ind-l">BOLLINGER</div><div class="ind-v" id="iBb" style="color:var(--blue)">â</div><div class="ind-b"><div class="ind-f" id="iBbB" style="width:50%;background:var(--blue)"></div></div></div>
+          <div><div class="ind-l">RSI (14)</div><div class="ind-v" id="iRsi" style="color:var(--yellow)"></div><div class="ind-b"><div class="ind-f" id="iRsiB" style="width:50%;background:var(--yellow)"></div></div></div>
+          <div><div class="ind-l">MACD</div><div class="ind-v" id="iMacd" style="color:var(--green)"></div><div class="ind-b"><div class="ind-f" id="iMacdB" style="width:60%;background:var(--green)"></div></div></div>
+          <div><div class="ind-l">BOLLINGER</div><div class="ind-v" id="iBb" style="color:var(--blue)"></div><div class="ind-b"><div class="ind-f" id="iBbB" style="width:50%;background:var(--blue)"></div></div></div>
           <div><div class="ind-l">SINAL</div><div class="ind-v" id="iSig" style="color:var(--muted2)">AGUARD.</div><div class="ind-b"><div class="ind-f" id="iSigB" style="width:0%"></div></div></div>
         </div>
       </div>
@@ -558,9 +558,9 @@ canvas#ch{width:100%;height:130px;display:block;}
   
       <!-- TRADES -->
       <div class="panel">
-        <div class="ph"><span class="pt">HISTÁRICO</span><span class="pb" id="tCount">0 trades</span></div>
+        <div class="ph"><span class="pt">HISTÁRICO</span><span class="pb" id="tCount">0 trades</span></div>
         <table class="tt">
-          <thead><tr><th>PAR</th><th>ENTRADA</th><th>SAÁDA</th><th>PnL</th><th>STATUS</th><th>HORA</th></tr></thead>
+          <thead><tr><th>PAR</th><th>ENTRADA</th><th>SAÁDA</th><th>PnL</th><th>STATUS</th><th>HORA</th></tr></thead>
           <tbody id="tBody"><tr><td colspan="6" style="text-align:center;color:var(--muted);padding:22px;font-size:11px">Aguardando primeiro trade...</td></tr></tbody>
         </table>
       </div>
@@ -571,19 +571,19 @@ canvas#ch{width:100%;height:130px;display:block;}
       <div class="panel">
         <div class="ph"><span class="pt">CONTA MEXC</span><button onclick="openModal()" style="background:none;border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:9px;cursor:pointer;padding:2px 8px;">VERIFICAR</button></div>
         <div class="cfg" style="gap:8px">
-          <div class="cfg-row"><span class="cfg-lbl">Conexão</span><span class="bdg none" id="dConn">â</span></div>
-          <div class="cfg-row"><span class="cfg-lbl">Tipo</span><span class="bdg none" id="dType">â</span></div>
-          <div class="cfg-row"><span class="cfg-lbl">Saldo real</span><span class="cfg-val g" id="dRealBal">â</span></div>
-          <div class="cfg-row"><span class="cfg-lbl">Zero Taxa</span><span class="cfg-val g" id="dZfInfo">â</span></div>
+          <div class="cfg-row"><span class="cfg-lbl">Conexão</span><span class="bdg none" id="dConn"></span></div>
+          <div class="cfg-row"><span class="cfg-lbl">Tipo</span><span class="bdg none" id="dType"></span></div>
+          <div class="cfg-row"><span class="cfg-lbl">Saldo real</span><span class="cfg-val g" id="dRealBal"></span></div>
+          <div class="cfg-row"><span class="cfg-lbl">Zero Taxa</span><span class="cfg-val g" id="dZfInfo"></span></div>
         </div>
       </div>
       <!-- PAIRS -->
       <div class="panel">
-        <div class="ph"><span class="pt">PARES</span><span class="pb" id="pairBdg">â</span></div>
+        <div class="ph"><span class="pt">PARES</span><span class="pb" id="pairBdg"></span></div>
         <div style="padding:8px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px">
           <label class="tog"><input type="checkbox" id="dZfChk" onchange="onDashZf(this)"><span class="tog-s"></span></label>
           <span style="font-size:11px;font-weight:600;flex:1">Zero Taxa apenas</span>
-          <span class="fee-cnt" id="dZfCnt">â</span>
+          <span class="fee-cnt" id="dZfCnt"></span>
         </div>
         <div class="pair-list" id="pList"></div>
       </div>
@@ -591,25 +591,25 @@ canvas#ch{width:100%;height:130px;display:block;}
       <div class="panel">
         <div class="ph"><span class="pt">INDICADORES</span></div>
         <div class="strats">
-          <div class="st"><div class="st-ico">ð</div><div class="st-info"><div class="st-name">RSI</div><div class="st-bar"><div class="st-fill" id="sfR" style="width:0%;background:var(--yellow)"></div></div></div><div class="st-val" id="svR" style="color:var(--yellow)">â</div></div>
-          <div class="st"><div class="st-ico">ð</div><div class="st-info"><div class="st-name">MACD</div><div class="st-bar"><div class="st-fill" id="sfM" style="width:0%;background:var(--green)"></div></div></div><div class="st-val" id="svM" style="color:var(--green)">â</div></div>
-          <div class="st"><div class="st-ico">ð¯</div><div class="st-info"><div class="st-name">Bollinger</div><div class="st-bar"><div class="st-fill" id="sfB" style="width:0%;background:var(--blue)"></div></div></div><div class="st-val" id="svB" style="color:var(--blue)">â</div></div>
-          <div class="st"><div class="st-ico">â¡</div><div class="st-info"><div class="st-name">EMA Cross</div><div class="st-bar"><div class="st-fill" id="sfE" style="width:0%;background:var(--purple)"></div></div></div><div class="st-val" id="svE" style="color:var(--purple)">â</div></div>
-          <div class="st"><div class="st-ico">ð</div><div class="st-info"><div class="st-name">Volume</div><div class="st-bar"><div class="st-fill" id="sfV" style="width:0%;background:var(--orange)"></div></div></div><div class="st-val" id="svV" style="color:var(--orange)">â</div></div>
+          <div class="st"><div class="st-ico">ð</div><div class="st-info"><div class="st-name">RSI</div><div class="st-bar"><div class="st-fill" id="sfR" style="width:0%;background:var(--yellow)"></div></div></div><div class="st-val" id="svR" style="color:var(--yellow)"></div></div>
+          <div class="st"><div class="st-ico">ð</div><div class="st-info"><div class="st-name">MACD</div><div class="st-bar"><div class="st-fill" id="sfM" style="width:0%;background:var(--green)"></div></div></div><div class="st-val" id="svM" style="color:var(--green)"></div></div>
+          <div class="st"><div class="st-ico">ð</div><div class="st-info"><div class="st-name">Bollinger</div><div class="st-bar"><div class="st-fill" id="sfB" style="width:0%;background:var(--blue)"></div></div></div><div class="st-val" id="svB" style="color:var(--blue)"></div></div>
+          <div class="st"><div class="st-ico"></div><div class="st-info"><div class="st-name">EMA Cross</div><div class="st-bar"><div class="st-fill" id="sfE" style="width:0%;background:var(--purple)"></div></div></div><div class="st-val" id="svE" style="color:var(--purple)"></div></div>
+          <div class="st"><div class="st-ico">ð</div><div class="st-info"><div class="st-name">Volume</div><div class="st-bar"><div class="st-fill" id="sfV" style="width:0%;background:var(--orange)"></div></div></div><div class="st-val" id="svV" style="color:var(--orange)"></div></div>
         </div>
       </div>
       <!-- CONFIG + CONTROLS -->
       <div class="panel">
         <div class="ph"><span class="pt">CONFIG ATIVA</span></div>
         <div class="cfg">
-          <div class="cfg-row"><span class="cfg-lbl">Modo</span><span class="cfg-val" id="cfMode">â</span></div>
-          <div class="cfg-row"><span class="cfg-lbl">Por trade</span><span class="cfg-val g" id="cfAmt">â</span></div>
-          <div class="cfg-row"><span class="cfg-lbl">Take Profit</span><span class="cfg-val g" id="cfTp">â</span></div>
-          <div class="cfg-row"><span class="cfg-lbl">Stop Loss</span><span class="cfg-val" style="color:var(--red)" id="cfSl">â</span></div>
-          <div class="cfg-row"><span class="cfg-lbl">Zero Taxa</span><span class="cfg-val" id="cfZf">NÁO</span></div>
-          <button class="act-btn btn-stop" id="btnStop" onclick="stopBot()">â¹ PARAR BOT</button>
-          <button class="act-btn btn-restart" id="btnRestart" style="display:none" onclick="startBot()">â¶ REINICIAR</button>
-          <button class="act-btn btn-back" id="btnBack" style="display:none" onclick="goSetup()">âï¸ CONFIGURAÁÁES</button>
+          <div class="cfg-row"><span class="cfg-lbl">Modo</span><span class="cfg-val" id="cfMode"></span></div>
+          <div class="cfg-row"><span class="cfg-lbl">Por trade</span><span class="cfg-val g" id="cfAmt"></span></div>
+          <div class="cfg-row"><span class="cfg-lbl">Take Profit</span><span class="cfg-val g" id="cfTp"></span></div>
+          <div class="cfg-row"><span class="cfg-lbl">Stop Loss</span><span class="cfg-val" style="color:var(--red)" id="cfSl"></span></div>
+          <div class="cfg-row"><span class="cfg-lbl">Zero Taxa</span><span class="cfg-val" id="cfZf">NÁO</span></div>
+          <button class="act-btn btn-stop" id="btnStop" onclick="stopBot()"> PARAR BOT</button>
+          <button class="act-btn btn-restart" id="btnRestart" style="display:none" onclick="startBot()"> REINICIAR</button>
+          <button class="act-btn btn-back" id="btnBack" style="display:none" onclick="goSetup()">ï CONFIGURAÁÁES</button>
         </div>
       </div>
       <!-- LOG -->
@@ -625,7 +625,7 @@ canvas#ch{width:100%;height:130px;display:block;}
 <div class="toast" id="toast"></div>
 
 <script>
-// ââ Helpers âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Helpers 
 const $ = id => document.getElementById(id);
 function fmt(sym,p){
   if(p>=1000) return '$'+p.toLocaleString('en-US',{maximumFractionDigits:0});
@@ -649,30 +649,30 @@ function log(msg,c='w'){
 }
 function toggleEye(id,btn){
   const el=$(id); el.type=el.type==='password'?'text':'password';
-  $(btn).textContent=el.type==='password'?'ð':'ð';
+  $(btn).textContent=el.type==='password'?'ð':'ð';
 }
 
-// ââ Zero fee ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Zero fee 
 let ZF = new Set(['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','DOGEUSDT','BNBUSDT','PEPEUSDT','SHIBUSDT','WIFUSDT','BONKUSDT','FLOKIUSDT','NOTUSDT','TURBOUSDT','MEMEUSDT','BRETTUSDT']);
 const ALL = [
-  {sym:'BTCUSDT',  ico:'â¿', base:104000,   vol:'2.4B'},
-  {sym:'ETHUSDT',  ico:'Î', base:2480,      vol:'1.1B'},
-  {sym:'SOLUSDT',  ico:'â', base:152,        vol:'480M'},
-  {sym:'XRPUSDT',  ico:'â', base:2.31,       vol:'620M'},
-  {sym:'BNBUSDT',  ico:'â¬¡', base:598,        vol:'310M'},
-  {sym:'DOGEUSDT', ico:'Á', base:0.198,      vol:'290M'},
-  {sym:'PEPEUSDT', ico:'ð¸',base:0.0000134,  vol:'260M'},
-  {sym:'SHIBUSDT', ico:'ð',base:0.0000245,  vol:'200M'},
-  {sym:'ADAUSDT',  ico:'â³', base:0.782,      vol:'210M'},
-  {sym:'WIFUSDT',  ico:'ð¶',base:1.12,       vol:'150M'},
-  {sym:'BONKUSDT', ico:'ð¦´',base:0.0000212,  vol:'120M'},
-  {sym:'FLOKIUSDT',ico:'ð',base:0.000198,   vol:'110M'},
-  {sym:'AVAXUSDT', ico:'â²', base:22.4,       vol:'180M'},
-  {sym:'MATICUSDT',ico:'â¬', base:0.48,       vol:'140M'},
-  {sym:'DOTUSDT',  ico:'â', base:5.82,       vol:'130M'},
+  {sym:'BTCUSDT',  ico:'', base:104000,   vol:'2.4B'},
+  {sym:'ETHUSDT',  ico:'Î', base:2480,      vol:'1.1B'},
+  {sym:'SOLUSDT',  ico:'', base:152,        vol:'480M'},
+  {sym:'XRPUSDT',  ico:'', base:2.31,       vol:'620M'},
+  {sym:'BNBUSDT',  ico:'', base:598,        vol:'310M'},
+  {sym:'DOGEUSDT', ico:'Á', base:0.198,      vol:'290M'},
+  {sym:'PEPEUSDT', ico:'ð',base:0.0000134,  vol:'260M'},
+  {sym:'SHIBUSDT', ico:'ð',base:0.0000245,  vol:'200M'},
+  {sym:'ADAUSDT',  ico:'', base:0.782,      vol:'210M'},
+  {sym:'WIFUSDT',  ico:'ð',base:1.12,       vol:'150M'},
+  {sym:'BONKUSDT', ico:'ð',base:0.0000212,  vol:'120M'},
+  {sym:'FLOKIUSDT',ico:'ð',base:0.000198,   vol:'110M'},
+  {sym:'AVAXUSDT', ico:'', base:22.4,       vol:'180M'},
+  {sym:'MATICUSDT',ico:'', base:0.48,       vol:'140M'},
+  {sym:'DOTUSDT',  ico:'', base:5.82,       vol:'130M'},
 ];
 
-// ââ State âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  State 
 const S = {
   running:false, mode:'sim', cfg:{},
   bal:1000, realBal:null,
@@ -681,7 +681,7 @@ const S = {
   scanT:null, chartT:null, balT:null,
   csym:'BTCUSDT', zf:false,
   prices:{}, hist:{},
-  conn:{ok:false,bal:'â',eq:'â',last:null}
+  conn:{ok:false,bal:'',eq:'',last:null}
 };
 ALL.forEach(p=>{
   S.prices[p.sym]=p.base;
@@ -689,7 +689,7 @@ ALL.forEach(p=>{
 });
 function active(){ return S.zf ? ALL.filter(p=>ZF.has(p.sym)) : ALL; }
 
-// ââ Clock âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Clock 
 setInterval(()=>{
   $('clock').textContent=new Date().toLocaleTimeString('pt-BR');
   if(S.running&&S.t0){
@@ -699,27 +699,27 @@ setInterval(()=>{
 },1000);
 $('clock').textContent=new Date().toLocaleTimeString('pt-BR');
 
-// ââ Modal conta âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Modal conta 
 function openModal(){ $('modal').classList.add('open'); syncModal(); }
 function closeModal(){ $('modal').classList.remove('open'); }
 function syncModal(){
   const c=S.conn;
   const ce=$('mConn'),te=$('mType');
   if(c.ok){
-    ce.textContent='CONECTADO â'; ce.className='bdg ok';
-    te.textContent=S.mode==='live'?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÁÁO';
+    ce.textContent='CONECTADO '; ce.className='bdg ok';
+    te.textContent=S.mode==='live'?' CONTA REAL':'ðï SIMULAÁÁO';
     te.className='bdg '+(S.mode==='live'?'live':'sim');
     $('mBal').textContent=c.bal; $('mEq').textContent=c.eq;
   } else {
     ce.textContent='DESCONECTADO'; ce.className='bdg fail';
-    te.textContent='â'; te.className='bdg none';
-    $('mBal').textContent='â'; $('mEq').textContent='â';
+    te.textContent=''; te.className='bdg none';
+    $('mBal').textContent=''; $('mEq').textContent='';
   }
   $('mTime').textContent=c.last?c.last.toLocaleTimeString('pt-BR'):'Nunca';
 }
 
 async function doVerify(){
-  const btn=$('verBtn'); btn.disabled=true; btn.textContent='â³ Verificandoâ¦';
+  const btn=$('verBtn'); btn.disabled=true; btn.textContent=' Verificando';
   $('mErr').style.display='none'; $('mOk').style.display='none';
   try{
     const r=await fetch('/api/balance'), d=await r.json();
@@ -730,24 +730,24 @@ async function doVerify(){
       S.conn.eq=`$${(d.equity||d.balance).toFixed(2)} USDT`;
       S.realBal=d.balance;
       $('mOk').style.display='block';
-      $('mOk').textContent=`â ${d.account}: $${d.balance.toFixed(2)} USDT disponível`;
+      $('mOk').textContent=` ${d.account}: $${d.balance.toFixed(2)} USDT disponível`;
       applyBal(d.balance,d.account);
       updateHdr(); syncDash();
-      toast(`â Saldo ${d.account}: $${d.balance.toFixed(2)} USDT`,'s');
+      toast(` Saldo ${d.account}: $${d.balance.toFixed(2)} USDT`,'s');
     } else {
       $('mErr').style.display='block';
-      $('mErr').textContent='â '+d.error;
+      $('mErr').textContent=' '+d.error;
       toast('Erro: '+d.error,'e');
     }
   } catch(e){
     $('mErr').style.display='block';
-    $('mErr').textContent='â Erro de rede: '+e.message;
+    $('mErr').textContent=' Erro de rede: '+e.message;
   }
   syncModal();
-  btn.disabled=false; btn.textContent='ð VERIFICAR SALDO AGORA';
+  btn.disabled=false; btn.textContent='ð VERIFICAR SALDO AGORA';
 }
 
-// ââ Setup â modo ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Setup  modo 
 function setMode(m){
   S.mode=m;
   $('btnSim').className='mode'+(m==='sim'?' active-sim':'');
@@ -761,9 +761,9 @@ async function testCreds(){
   const res=$('testRes'), btn=$('testBtn');
   if(!key||!sec){
     res.style.display='block'; res.className='test-result test-fail';
-    res.textContent='â ï¸ Preencha a API Key e o Secret.'; return;
+    res.textContent='ï Preencha a API Key e o Secret.'; return;
   }
-  btn.disabled=true; btn.textContent='â³ Testandoâ¦'; res.style.display='none';
+  btn.disabled=true; btn.textContent=' Testando'; res.style.display='none';
   // Envia para o servidor testar (em produção no Render as vars de ambiente têm prioridade)
   try{
     // Salva na sessão do servidor para teste imediato
@@ -772,25 +772,25 @@ async function testCreds(){
     res.style.display='block';
     if(d.ok){
       res.className='test-result test-ok';
-      res.textContent=`â Conectado! ${d.account}: $${d.balance.toFixed(2)} USDT`;
+      res.textContent=` Conectado! ${d.account}: $${d.balance.toFixed(2)} USDT`;
       S.conn.ok=true; S.realBal=d.balance;
       S.conn.bal=`$${d.balance.toFixed(2)} USDT`; S.conn.eq=`$${(d.equity||d.balance).toFixed(2)} USDT`;
       S.conn.last=new Date();
-      $('lKey').value=''; $('lKey').placeholder=key.slice(0,4)+'â¢â¢â¢â¢'+key.slice(-4);
-      $('lSec').value=''; $('lSec').placeholder='â¢'.repeat(12)+sec.slice(-4);
+      $('lKey').value=''; $('lKey').placeholder=key.slice(0,4)+''+key.slice(-4);
+      $('lSec').value=''; $('lSec').placeholder=''.repeat(12)+sec.slice(-4);
       $('kBdg').style.display='inline-flex'; $('sBdg').style.display='inline-flex';
       updateHdr(); syncDash();
-      toast(`â $${d.balance.toFixed(2)} USDT`,'s');
+      toast(` $${d.balance.toFixed(2)} USDT`,'s');
     } else {
       res.className='test-result test-fail';
-      res.textContent='â '+d.error;
+      res.textContent=' '+d.error;
       toast('Erro: '+d.error,'e');
     }
   } catch(e){
     res.style.display='block'; res.className='test-result test-fail';
-    res.textContent='â Erro: '+e.message;
+    res.textContent=' Erro: '+e.message;
   }
-  btn.disabled=false; btn.textContent='ð TESTAR CONEXÁO';
+  btn.disabled=false; btn.textContent='ð TESTAR CONEXÁO';
 }
 
 function syncZf(){
@@ -801,13 +801,13 @@ function onDashZf(el){
   S.zf=el.checked; $('zfChk').checked=el.checked;
   const a=active();
   $('pairBdg').textContent=a.length+' pares'; $('dZfCnt').textContent=a.length;
-  $('cfZf').textContent=el.checked?'SIM â':'NÁO';
+  $('cfZf').textContent=el.checked?'SIM ':'NÁO';
   renderPairs();
-  log(`ð·ï¸ Zero Taxa: ${el.checked?'ATIVO ('+a.length+' pares)':'Desativado'}`,'b');
-  toast(el.checked?`â ${a.length} pares 0% fee`:'Todos os pares','i');
+  log(`ðï Zero Taxa: ${el.checked?'ATIVO ('+a.length+' pares)':'Desativado'}`,'b');
+  toast(el.checked?` ${a.length} pares 0% fee`:'Todos os pares','i');
 }
 
-// ââ Start / Stop ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Start / Stop 
 function startBot(){
   const dashOn=$('dash').style.display==='block';
   if(!dashOn){
@@ -825,7 +825,7 @@ function startBot(){
   clearInterval(S.scanT); clearInterval(S.chartT); clearInterval(S.balT);
 
   if(!S.conn.ok){
-    S.conn.ok=true; S.conn.bal='$1.000,00 (virtual)'; S.conn.eq='â'; S.conn.last=new Date(); S.mode='sim';
+    S.conn.ok=true; S.conn.bal='$1.000,00 (virtual)'; S.conn.eq=''; S.conn.last=new Date(); S.mode='sim';
     updateHdr();
   }
 
@@ -834,9 +834,9 @@ function startBot(){
   $('btnStop').style.display='block'; $('btnRestart').style.display='none'; $('btnBack').style.display='none';
 
   const live=S.mode==='live'||S.cfg.mode==='live';
-  $('cfMode').textContent=live?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÁÁO'; $('cfMode').className='cfg-val '+(live?'o':'b');
+  $('cfMode').textContent=live?' CONTA REAL':'ðï SIMULAÁÁO'; $('cfMode').className='cfg-val '+(live?'o':'b');
   $('cfAmt').textContent=`$${S.cfg.amt}`; $('cfTp').textContent=`${S.cfg.tp.toFixed(1)}%`;
-  $('cfSl').textContent=`${S.cfg.sl.toFixed(1)}%`; $('cfZf').textContent=S.cfg.zf?'SIM â':'NÁO';
+  $('cfSl').textContent=`${S.cfg.sl.toFixed(1)}%`; $('cfZf').textContent=S.cfg.zf?'SIM ':'NÁO';
   $('dPos').textContent=`0/${S.cfg.max}`; $('dZfChk').checked=S.zf;
 
   const ap=active();
@@ -849,16 +849,16 @@ function startBot(){
 
   S.running=true; S.t0=Date.now(); S.cycles=0;
   renderPairs(); initChart();
-  log(`ð¤ Bot ${dashOn?'REINICIADO':'INICIADO'} Â· ${live?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÁÁO'}`,'g');
-  log(`âï¸ TP:${S.cfg.tp}% | SL:${S.cfg.sl}% | Max:${S.cfg.max} | ZF:${S.cfg.zf?'SIM':'NÁO'}`,'w');
-  toast(`ð Bot ${dashOn?'reiniciado':'iniciado'}!`,'s');
+  log(`ð Bot ${dashOn?'REINICIADO':'INICIADO'}  ${live?' CONTA REAL':'ðï SIMULAÁÁO'}`,'g');
+  log(`ï TP:${S.cfg.tp}% | SL:${S.cfg.sl}% | Max:${S.cfg.max} | ZF:${S.cfg.zf?'SIM':'NÁO'}`,'w');
+  toast(`ð Bot ${dashOn?'reiniciado':'iniciado'}!`,'s');
 
   // Atualiza saldo real a cada 30s se live
   if(live){
     const rb=()=>{
       if(!S.running) return;
       fetch('/api/balance').then(r=>r.json()).then(d=>{
-        if(d.ok){ S.realBal=d.balance; S.conn.bal=`$${d.balance.toFixed(2)} USDT`; syncDash(); applyBal(d.balance,d.account); log(`ð° Saldo: $${d.balance.toFixed(2)} (${d.account})`,'b'); }
+        if(d.ok){ S.realBal=d.balance; S.conn.bal=`$${d.balance.toFixed(2)} USDT`; syncDash(); applyBal(d.balance,d.account); log(`ð Saldo: $${d.balance.toFixed(2)} (${d.account})`,'b'); }
       }).catch(()=>{});
     };
     setTimeout(rb,2000); S.balT=setInterval(rb,30000);
@@ -876,7 +876,7 @@ function applyBal(b,acc){
   if(S.running){
     S.bal=b;
     $('dBal').textContent='$'+b.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-    $('dBalSub').textContent='Conta '+acc+' Â· Real';
+    $('dBalSub').textContent='Conta '+acc+'  Real';
   }
 }
 
@@ -885,7 +885,7 @@ function stopBot(){
   clearInterval(S.scanT); clearInterval(S.chartT); clearInterval(S.balT);
   $('runBadge').className='run-badge off'; $('runDot').classList.remove('pulse'); $('runTxt').textContent='PARADO';
   $('btnStop').style.display='none'; $('btnRestart').style.display='block'; $('btnBack').style.display='block';
-  log('â¹ Bot parado','r'); toast('Bot parado.','i');
+  log(' Bot parado','r'); toast('Bot parado.','i');
 }
 
 function goSetup(){
@@ -898,18 +898,18 @@ function updateHdr(){
   const c=S.conn;
   $('aDot').className='acct-dot '+(c.ok?'on':'off');
   $('aLbl').textContent=c.ok?(S.mode==='live'?'MEXC Conectado':'Simulação Ativa'):'Sem conexão';
-  const sub=$('aSub'); sub.textContent=S.mode==='live'?'â¡ CONTA REAL':'ð¡ï¸ SIMULAÁÁO';
+  const sub=$('aSub'); sub.textContent=S.mode==='live'?' CONTA REAL':'ðï SIMULAÁÁO';
   sub.className='acct-sub2 '+(c.ok?(S.mode==='live'?'live':'sim'):'none');
 }
 function syncDash(){
   const c=S.conn;
   const ce=$('dConn'),te=$('dType');
-  if(c.ok){ ce.textContent='CONECTADO â'; ce.className='bdg ok'; te.textContent=S.mode==='live'?'â¡ REAL':'ð¡ï¸ SIM'; te.className='bdg '+(S.mode==='live'?'live':'sim'); $('dRealBal').textContent=c.bal; }
-  else { ce.textContent='â'; ce.className='bdg none'; te.textContent='â'; te.className='bdg none'; $('dRealBal').textContent='â'; }
+  if(c.ok){ ce.textContent='CONECTADO '; ce.className='bdg ok'; te.textContent=S.mode==='live'?' REAL':'ðï SIM'; te.className='bdg '+(S.mode==='live'?'live':'sim'); $('dRealBal').textContent=c.bal; }
+  else { ce.textContent=''; ce.className='bdg none'; te.textContent=''; te.className='bdg none'; $('dRealBal').textContent=''; }
   $('dZfInfo').textContent=ZF.size+' disponíveis';
 }
 
-// ââ Preços ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Preços 
 let lastFetch=0;
 async function fetchPrices(){
   if(Date.now()-lastFetch<10000) return; lastFetch=Date.now();
@@ -923,7 +923,7 @@ function updatePrices(){
   fetchPrices(); renderPairs(); drawChart(S.hist[S.csym]); checkExits();
 }
 
-// ââ Indicators ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Indicators 
 function rsi(prices,p=14){ if(prices.length<p+1) return 50; const d=prices.slice(-p-1).map((x,i,a)=>i>0?x-a[i-1]:0).slice(1); const g=d.map(x=>x>0?x:0),l=d.map(x=>x<0?-x:0); const ag=g.reduce((a,b)=>a+b,0)/p,al=l.reduce((a,b)=>a+b,0)/p; return al===0?100:100-100/(1+ag/al); }
 function ema(prices,p){ if(prices.length<p) return prices[prices.length-1]; const k=2/(p+1); let e=prices.slice(0,p).reduce((a,b)=>a+b,0)/p; prices.slice(p).forEach(x=>e=x*k+e*(1-k)); return e; }
 function analyze(sym){
@@ -942,12 +942,12 @@ function analyze(sym){
   return {signal,rs,mv,bL,bU,ef,es,cur,b,s};
 }
 
-// ââ Scan ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Scan 
 function scan(){
   if(!S.running) return;
   S.cycles++; $('dCyc').textContent=`${S.cycles} ciclos`;
   const open=Object.keys(S.pos).length, pairs=active();
-  log(`ð #${S.cycles} Â· ${open}/${S.cfg.max} Â· ${pairs.length} pares`+(S.zf?' ð·ï¸':''),'w');
+  log(`ð #${S.cycles}  ${open}/${S.cfg.max}  ${pairs.length} pares`+(S.zf?' ðï':''),'w');
   const ind=analyze(S.csym); updInds(ind); updStrats(ind);
   if(open<S.cfg.max) pairs.forEach(p=>{ if(S.pos[p.sym]||Object.keys(S.pos).length>=S.cfg.max) return; const a=analyze(p.sym); if(a.signal==='BUY') openPos(p.sym,S.prices[p.sym],a); });
   updMetrics();
@@ -956,8 +956,8 @@ function scan(){
 function openPos(sym,price,a){
   const isZf=ZF.has(sym);
   S.pos[sym]={entry:price,qty:S.cfg.amt/price,t:new Date(),zf:isZf};
-  log(`ð COMPRA ${sym}${isZf?' ð·ï¸':''}Â·$${fmt(sym,price)}Â·RSI:${a.rs.toFixed(0)}`,'g');
-  toast(`ð ${sym}${isZf?' (0%)':''}`, 's'); updMetrics();
+  log(`ð COMPRA ${sym}${isZf?' ðï':''}$${fmt(sym,price)}RSI:${a.rs.toFixed(0)}`,'g');
+  toast(`ð ${sym}${isZf?' (0%)':''}`, 's'); updMetrics();
 }
 function checkExits(){
   if(!S.running) return;
@@ -968,23 +968,23 @@ function closePos(sym,exit,reason,pct){
   S.trades.unshift({sym,entry:pos.entry,exit,pct,pnl,reason,t:new Date(),zf:pos.zf});
   delete S.pos[sym];
   const w=pct>0;
-  log(`${w?'â':'â'} ${reason} ${sym}Â·${pct>0?'+':''}${pct.toFixed(2)}%Â·$${pnl>0?'+':''}${pnl.toFixed(3)}`,w?'g':'r');
+  log(`${w?'':''} ${reason} ${sym}${pct>0?'+':''}${pct.toFixed(2)}%$${pnl>0?'+':''}${pnl.toFixed(3)}`,w?'g':'r');
   renderTrades(); updMetrics();
-  toast(`${w?'â':'â'} ${sym}: ${pct>0?'+':''}${pct.toFixed(2)}%`,w?'s':'e');
+  toast(`${w?'':''} ${sym}: ${pct>0?'+':''}${pct.toFixed(2)}%`,w?'s':'e');
 }
 
-// ââ Metrics âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Metrics 
 function updMetrics(){
   const pnl=S.bal-(S.realBal||1000);
   const pe=$('dPnl'); pe.textContent=`${pnl>=0?'+':''}$${pnl.toFixed(2)}`; pe.className=`mc-val ${pnl>=0?'g':'r'}`;
   $('dBal').textContent='$'+S.bal.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
   $('dPnlSub').textContent=`${S.trades.length} trades fechados`;
   const wins=S.trades.filter(t=>t.pct>0).length, wr=S.trades.length?wins/S.trades.length*100:0;
-  const we=$('dWr'); we.textContent=S.trades.length?`${wr.toFixed(1)}%`:'â'; we.className=`mc-val ${wr>=60?'g':wr>=45?'y':'r'}`;
-  const op=Object.keys(S.pos).length; $('dPos').textContent=`${op}/${S.cfg.max}`; $('dPosSub').textContent=op?`$${(op*S.cfg.amt).toFixed(0)} alocados`:'â';
+  const we=$('dWr'); we.textContent=S.trades.length?`${wr.toFixed(1)}%`:''; we.className=`mc-val ${wr>=60?'g':wr>=45?'y':'r'}`;
+  const op=Object.keys(S.pos).length; $('dPos').textContent=`${op}/${S.cfg.max}`; $('dPosSub').textContent=op?`$${(op*S.cfg.amt).toFixed(0)} alocados`:'';
 }
 
-// ââ Pairs âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Pairs 
 function renderPairs(){
   $('pList').innerHTML=active().map(p=>{
     const pr=S.prices[p.sym],h=S.hist[p.sym],chg=(pr-(h[0]||pr))/(h[0]||pr)*100,up=chg>=0;
@@ -993,14 +993,14 @@ function renderPairs(){
     return `<div class="pr" onclick="switchChart('${p.sym}',null)" style="${inPos?'background:rgba(13,255,140,.03)':''}">
       <div style="display:flex;align-items:center;gap:8px">
         <div class="pr-ico" style="${inPos?'border-color:var(--green)':''}">${p.ico}</div>
-        <div><div class="pr-name">${p.sym.replace('USDT','')}${isZf?'<span class="zft">0%</span>':''}<span class="sig ${sc}">${a.signal}</span></div><div class="pr-vol">${p.vol}${inPos?' Â· EM POS.':''}</div></div>
+        <div><div class="pr-name">${p.sym.replace('USDT','')}${isZf?'<span class="zft">0%</span>':''}<span class="sig ${sc}">${a.signal}</span></div><div class="pr-vol">${p.vol}${inPos?'  EM POS.':''}</div></div>
       </div>
       <div><div class="pr-p">${fmt(p.sym,pr)}</div><div class="pr-c" style="color:${up?'var(--green)':'var(--red)'}">${up?'+':''}${chg.toFixed(2)}%</div></div>
     </div>`;
   }).join('');
 }
 
-// ââ Chart âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Chart 
 let ctx;
 function initChart(){
   const c=$('ch'); ctx=c.getContext('2d');
@@ -1042,8 +1042,8 @@ function updInds(ind){
   const rng=ind.bU-ind.bL||1,pct=(ind.cur-ind.bL)/rng*100,bc=pct<20?'var(--green)':pct>80?'var(--red)':'var(--blue)';
   $('iBb').textContent=pct<20?'BAIXO':pct>80?'ALTO':'NEUTRO';$('iBb').style.color=bc;$('iBbB').style.width=Math.max(5,Math.min(95,pct))+'%';$('iBbB').style.background=bc;
   const se=$('iSig'),sb=$('iSigB');
-  if(ind.signal==='BUY'){se.textContent='ð¢ COMPRA';se.style.color='var(--green)';sb.style.width='85%';sb.style.background='var(--green)';}
-  else if(ind.signal==='SELL'){se.textContent='ð´ VENDA';se.style.color='var(--red)';sb.style.width='85%';sb.style.background='var(--red)';}
+  if(ind.signal==='BUY'){se.textContent='ð COMPRA';se.style.color='var(--green)';sb.style.width='85%';sb.style.background='var(--green)';}
+  else if(ind.signal==='SELL'){se.textContent='ð VENDA';se.style.color='var(--red)';sb.style.width='85%';sb.style.background='var(--red)';}
   else{se.textContent='AGUARD.';se.style.color='var(--muted2)';sb.style.width='30%';sb.style.background='var(--muted2)';}
 }
 function updStrats(ind){
@@ -1057,19 +1057,19 @@ function updStrats(ind){
 }
 function sv(k,pct,lbl){$('sf'+k).style.width=pct+'%';$('sv'+k).textContent=lbl;}
 
-// ââ Trades table ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Trades table 
 function renderTrades(){
   $('tCount').textContent=`${S.trades.length} trades`;
   if(!S.trades.length){$('tBody').innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:22px;font-size:11px">Aguardando primeiro trade...</td></tr>';return;}
   $('tBody').innerHTML=S.trades.slice(0,15).map(t=>{
-    const w=t.pct>0,rc=t.reason==='TAKE_PROFIT'?'tg-tp':'tg-sl',rl=t.reason==='TAKE_PROFIT'?'TP â':'SL â';
+    const w=t.pct>0,rc=t.reason==='TAKE_PROFIT'?'tg-tp':'tg-sl',rl=t.reason==='TAKE_PROFIT'?'TP ':'SL ';
     const ti=t.t.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
     const zfb=t.zf?'<span class="tg tg-zf">0%</span>':'';
     return `<tr><td style="font-weight:600">${t.sym.replace('USDT','')}${zfb}</td><td>${fmt(t.sym,t.entry)}</td><td>${fmt(t.sym,t.exit)}</td><td style="color:${w?'var(--green)':'var(--red)'}">${w?'+':''}${t.pct.toFixed(2)}%</td><td><span class="tg ${rc}">${rl}</span></td><td style="color:var(--muted2)">${ti}</td></tr>`;
   }).join('');
 }
 
-// ââ Init ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+//  Init 
 (async ()=>{
   // Carrega status das credenciais do servidor
   try{
@@ -1087,7 +1087,7 @@ function renderTrades(){
         S.conn.eq=`$${(d2.equity||d2.balance).toFixed(2)} USDT`;
         S.conn.last=new Date(); S.realBal=d2.balance;
         updateHdr(); syncDash();
-        toast(`â MEXC: $${d2.balance.toFixed(2)} USDT`,'s');
+        toast(` MEXC: $${d2.balance.toFixed(2)} USDT`,'s');
       }
     }
     // Zero fee do servidor
