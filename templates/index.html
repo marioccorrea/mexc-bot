@@ -479,14 +479,14 @@ canvas#ch{width:100%;height:130px;display:block;}
 <!-- SETUP -->
 <div class="setup" id="setup">
   <div class="setup-card">
-    <div class="setup-title">Configure seu<br><span>Robô de Trading</span></div>
-    <div class="setup-sub">Escolha o modo, ajuste os parmetros e inicie. Comece em Simulação para aprender sem risco.</div>
+    <div class="setup-title">Configure seu<br><span>Rob de Trading</span></div>
+    <div class="setup-sub">Escolha o modo, ajuste os parametros e inicie. Comece em Simulação para aprender sem risco.</div>
 
     <!-- MODO -->
     <div class="form-lbl" style="margin-bottom:10px">MODO DE OPERAO</div>
     <div class="modes">
       <div class="mode active-sim" id="btnSim" onclick="setMode('sim')">
-        <div class="mode-ico">ï</div>
+        <div class="mode-ico"></div>
         <div class="mode-name">Simulação</div>
         <div class="mode-desc">Sem risco  Grátis</div>
       </div>
@@ -513,7 +513,7 @@ canvas#ch{width:100%;height:130px;display:block;}
       <button class="test-btn" id="testBtn" onclick="testCreds()"> TESTAR CONEXO</button>
       <div class="test-result" id="testRes"></div>
       <div class="api-hint">
-        ï MEXC  Perfil  API Management  Criar API<br>
+         MEXC  Perfil  API Management  Criar API<br>
          Permissões: Leitura de conta + Trade Spot
       </div>
     </div>
@@ -536,7 +536,7 @@ canvas#ch{width:100%;height:130px;display:block;}
         </div>
       </div>
       <div class="form-group">
-        <label class="form-lbl">MX. POSIES</label>
+        <label class="form-lbl">MAX. POSICOES</label>
         <div class="range-row">
           <input type="range" class="slider" id="sMax" min="1" max="10" value="3" step="1" oninput="$('sMaxV').textContent=this.value">
           <span class="range-val" id="sMaxV">3</span>
@@ -562,15 +562,15 @@ canvas#ch{width:100%;height:130px;display:block;}
     <div class="form-group">
       <label class="form-lbl">ESTRATGIA</label>
       <select class="form-input" id="sStrat">
-        <option value="balanced">ï Balanceada  RSI + MACD + Bollinger (recomendada)</option>
+        <option value="balanced"> Balanceada  RSI + MACD + Bollinger (recomendada)</option>
         <option value="conservative"> Conservadora  Poucos trades, mais certeza</option>
         <option value="aggressive"> Agressiva  Mais trades, mais risco</option>
         <option value="scalping"> Scalping  Ganhos rápidos e pequenos</option>
       </select>
     </div>
 
-    <button class="go-btn" onclick="startBot()"> INICIAR BOT</button>
-    <div class="warn">ï Trading envolve risco de perda. Comece sempre em Simulação. Nunca invista mais do que pode perder.</div>
+    <button class="go-btn" onclick="startBot()">INICIAR BOT</button>
+    <div class="warn"> Trading envolve risco de perda. Comece sempre em Simulação. Nunca invista mais do que pode perder.</div>
   </div>
 </div>
 
@@ -738,7 +738,7 @@ canvas#ch{width:100%;height:130px;display:block;}
           <div class="cfg-row"><span class="cfg-lbl">Zero Taxa</span><span class="cfg-val" id="cfZf">NO</span></div>
           <button class="act-btn btn-stop" id="btnStop" onclick="stopBot()"> PARAR BOT</button>
           <button class="act-btn btn-restart" id="btnRestart" style="display:none" onclick="startBot()"> REINICIAR</button>
-          <button class="act-btn btn-back" id="btnBack" style="display:none" onclick="goSetup()">ï CONFIGURAES</button>
+          <button class="act-btn btn-back" id="btnBack" style="display:none" onclick="goSetup()"> CONFIGURAES</button>
         </div>
       </div>
       <!-- LOG -->
@@ -836,7 +836,7 @@ function syncModal(){
   const ce=$('mConn'),te=$('mType');
   if(c.ok){
     ce.textContent='CONECTADO '; ce.className='bdg ok';
-    te.textContent=S.mode==='live'?' CONTA REAL':'ï SIMULAO';
+    te.textContent=S.mode==='live'?' CONTA REAL':' SIMULAO';
     te.className='bdg '+(S.mode==='live'?'live':'sim');
     $('mBal').textContent=c.bal; $('mEq').textContent=c.eq;
   } else {
@@ -890,7 +890,7 @@ async function testCreds(){
   const res=$('testRes'), btn=$('testBtn');
   if(!key||!sec){
     res.style.display='block'; res.className='test-result test-fail';
-    res.textContent='ï Preencha a API Key e o Secret.'; return;
+    res.textContent=' Preencha a API Key e o Secret.'; return;
   }
   btn.disabled=true; btn.textContent=' Testando'; res.style.display='none';
   // Envia para o servidor testar (em produção no Render as vars de ambiente têm prioridade)
@@ -932,7 +932,7 @@ function onDashZf(el){
   $('pairBdg').textContent=a.length+' pares'; $('dZfCnt').textContent=a.length;
   $('cfZf').textContent=el.checked?'SIM ':'NO';
   renderPairs();
-  log(`ï Zero Taxa: ${el.checked?'ATIVO ('+a.length+' pares)':'Desativado'}`,'b');
+  log(` Zero Taxa: ${el.checked?'ATIVO ('+a.length+' pares)':'Desativado'}`,'b');
   toast(el.checked?` ${a.length} pares 0% fee`:'Todos os pares','i');
 }
 
@@ -976,7 +976,7 @@ function startBot(){
   $('btnStop').style.display='block'; $('btnRestart').style.display='none'; $('btnBack').style.display='none';
 
   const live=S.mode==='live'||S.cfg.mode==='live';
-  $('cfMode').textContent=live?' CONTA REAL':'ï SIMULAO'; $('cfMode').className='cfg-val '+(live?'o':'b');
+  $('cfMode').textContent=live?' CONTA REAL':' SIMULAO'; $('cfMode').className='cfg-val '+(live?'o':'b');
   $('cfAmt').textContent=`$${S.cfg.amt}`; $('cfTp').textContent=`${S.cfg.tp.toFixed(1)}%`;
   $('cfSl').textContent=`${S.cfg.sl.toFixed(1)}%`; $('cfZf').textContent=S.cfg.zf?'SIM ':'NO';
   $('dPos').textContent=`0/${S.cfg.max}`; $('dZfChk').checked=S.zf;
@@ -991,8 +991,8 @@ function startBot(){
 
   S.running=true; S.t0=Date.now(); S.cycles=0;
   renderPairs(); initChart();
-  log(` Bot ${dashOn?'REINICIADO':'INICIADO'}  ${live?' CONTA REAL':'ï SIMULAO'}`,'g');
-  log(`ï TP:${S.cfg.tp}% | SL:${S.cfg.sl}% | Max:${S.cfg.max} | ZF:${S.cfg.zf?'SIM':'NO'}`,'w');
+  log(` Bot ${dashOn?'REINICIADO':'INICIADO'}  ${live?' CONTA REAL':' SIMULAO'}`,'g');
+  log(` TP:${S.cfg.tp}% | SL:${S.cfg.sl}% | Max:${S.cfg.max} | ZF:${S.cfg.zf?'SIM':'NO'}`,'w');
   toast(` Bot ${dashOn?'reiniciado':'iniciado'}!`,'s');
 
   // Atualiza saldo real a cada 30s se live
@@ -1040,13 +1040,13 @@ function updateHdr(){
   const c=S.conn;
   $('aDot').className='acct-dot '+(c.ok?'on':'off');
   $('aLbl').textContent=c.ok?(S.mode==='live'?'MEXC Conectado':'Simulação Ativa'):'Sem conexão';
-  const sub=$('aSub'); sub.textContent=S.mode==='live'?' CONTA REAL':'ï SIMULAO';
+  const sub=$('aSub'); sub.textContent=S.mode==='live'?' CONTA REAL':' SIMULAO';
   sub.className='acct-sub2 '+(c.ok?(S.mode==='live'?'live':'sim'):'none');
 }
 function syncDash(){
   const c=S.conn;
   const ce=$('dConn'),te=$('dType');
-  if(c.ok){ ce.textContent='CONECTADO '; ce.className='bdg ok'; te.textContent=S.mode==='live'?' REAL':'ï SIM'; te.className='bdg '+(S.mode==='live'?'live':'sim'); $('dRealBal').textContent=c.bal; }
+  if(c.ok){ ce.textContent='CONECTADO '; ce.className='bdg ok'; te.textContent=S.mode==='live'?' REAL':' SIM'; te.className='bdg '+(S.mode==='live'?'live':'sim'); $('dRealBal').textContent=c.bal; }
   else { ce.textContent=''; ce.className='bdg none'; te.textContent=''; te.className='bdg none'; $('dRealBal').textContent=''; }
   $('dZfInfo').textContent=ZF.size+' disponíveis';
 }
@@ -1089,7 +1089,7 @@ function scan(){
   if(!S.running) return;
   S.cycles++; $('dCyc').textContent=`${S.cycles} ciclos`;
   const open=Object.keys(S.pos).length, pairs=active();
-  log(` #${S.cycles}  ${open}/${S.cfg.max}  ${pairs.length} pares`+(S.zf?' ï':''),'w');
+  log(` #${S.cycles}  ${open}/${S.cfg.max}  ${pairs.length} pares`+(S.zf?' ':''),'w');
   const ind=analyze(S.csym); updInds(ind); updStrats(ind);
   if(open<S.cfg.max) pairs.forEach(p=>{ if(S.pos[p.sym]||Object.keys(S.pos).length>=S.cfg.max) return; const a=analyze(p.sym); if(a.signal==='BUY') openPos(p.sym,S.prices[p.sym],a); });
   updMetrics();
@@ -1098,7 +1098,7 @@ function scan(){
 function openPos(sym,price,a){
   const isZf=ZF.has(sym);
   S.pos[sym]={entry:price,qty:S.cfg.amt/price,t:new Date(),zf:isZf};
-  log(` COMPRA ${sym}${isZf?' ï':''}$${fmt(sym,price)}RSI:${a.rs.toFixed(0)}`,'g');
+  log(` COMPRA ${sym}${isZf?' ':''}$${fmt(sym,price)}RSI:${a.rs.toFixed(0)}`,'g');
   toast(` ${sym}${isZf?' (0%)':''}`, 's'); updMetrics();
 }
 function checkExits(){
