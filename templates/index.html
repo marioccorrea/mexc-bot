@@ -974,6 +974,75 @@ function renderTrades(){
     if(d3.ok){ ZF=new Set(d3.pairs); $('dZfInfo').textContent=ZF.size+' disponíveis'; }
   } catch(e){}
 })();
+// v3: Ordens Reais MEXC
+openPos = async function(sym,price,a){
+  const isZf=(typeof ZF!=='undefined')&&ZF.has(sym);
+  const isLive=(S.mode==='live'||S.cfg.mode==='live')&&S.conn.ok;
+  if(isLive){
+    log('Comprando '+sym+' $'+S.cfg.amt+'...','y');
+    try{
+      const r=await fetch('/api/order/buy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({symbol:sym,quoteOrderQty:S.cfg.amt})});
+      const d=await r.json();
+      if(d.ok){
+        const realQty=parseFloat(d.qty)||(S.cfg.amt/price);
+        const realPrice=parseFloat(d.price)||price;
+        S.pos[sym]={entry:realPrice,qty:realQty,orderId:d.orderId,t:new Date(),zf:isZf,real:true};
+        log('COMPRA OK '+sym+(isZf?' [0%]':'')+' @'+fmt(sym,realPrice)+' qty='+realQty,'g');
+        toast('Compra real: '+sym,'s');
+        setTimeout(()=>fetch('/api/balance').then(r=>r.json()).then(d=>{if(d.ok){S.bal=d.balance;S.realBal=d.balance;updMetrics();}}),2500);
+      }else{log('ERRO compra '+sym+': '+d.error,'r');toast('Erro: '+d.error,'e');}
+    }catch(e){log('ERRO rede '+sym+': '+e.message,'r');}
+  }else{
+    S.pos[sym]={entry:price,qty:S.cfg.amt/price,t:new Date(),zf:isZf,real:false};
+    log('[SIM] Compra '+sym+(isZf?' [0%]':'')+' @'+fmt(sym,price),'b');
+    toast('[SIM] '+sym,'i');
+  }
+  updMetrics();
+};
+closePos = async function(sym,exit,reason,pct){
+  const pos=S.pos[sym];if(!pos)return;const w=pct>0;
+  if(pos.real){
+    log('Vendendo '+sym+'...','y');
+    try{
+      const r=await fetch('/api/order/sell',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({symbol:sym,quantity:String(pos.qty)})});
+      const d=await r.json();
+      if(d.ok){
+        delete S.pos[sym];
+        setTimeout(async()=>{
+          const rb=await fetch('/api/balance');const db=await rb.json();
+          if(db.ok){
+            const pnlReal=db.balance-(S.realBal||S.bal);
+            S.bal=db.balance;S.realBal=db.balance;
+            S.trades.unshift({sym,entry:pos.entry,exit,pct,pnl:pnlReal,reason,t:new Date(),zf:pos.zf,real:true});
+            log((w?'LUCRO':'PERDA')+' '+sym+' '+(pct>0?'+':'')+pct.toFixed(2)+'% $'+pnlReal.toFixed(3),w?'g':'r');
+            renderTrades();updMetrics();
+            toast((w?'Lucro':'Perda')+' '+sym+': '+(pct>0?'+':'')+pct.toFixed(2)+'%',w?'s':'e');
+          }
+        },2500);
+      }else{log('ERRO venda '+sym+': '+d.error,'r');toast('Erro venda: '+d.error,'e');}
+    }catch(e){log('ERRO rede venda '+sym+': '+e.message,'r');}
+  }else{
+    const pnl=S.cfg.amt*pct/100;S.bal+=pnl;
+    S.trades.unshift({sym,entry:pos.entry,exit,pct,pnl,reason,t:new Date(),zf:pos.zf,real:false});
+    delete S.pos[sym];
+    log((w?'[SIM] Lucro':'[SIM] Perda')+' '+sym+' '+(pct>0?'+':'')+pct.toFixed(2)+'%',w?'g':'r');
+    renderTrades();updMetrics();
+    toast((w?'[SIM] Lucro':'[SIM] Perda')+' '+sym+': '+(pct>0?'+':'')+pct.toFixed(2)+'%',w?'s':'e');
+  }
+};
+checkExits=function(){
+  if(!S.running)return;
+  Object.entries(S.pos).forEach(([sym,pos])=>{
+    if(S._closing&&S._closing[sym])return;
+    const cur=S.prices[sym];if(!cur||!pos.entry)return;
+    const pct=(cur-pos.entry)/pos.entry*100;
+    if(pct>=S.cfg.tp||pct<=-S.cfg.sl){
+      if(!S._closing)S._closing={};S._closing[sym]=true;
+      const r=pct>=S.cfg.tp?'TAKE_PROFIT':'STOP_LOSS';
+      closePos(sym,cur,r,pct).finally(()=>{if(S._closing)delete S._closing[sym];});
+    }
+  });
+};
 </script>
 </body>
 </html>
