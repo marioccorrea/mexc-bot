@@ -29,15 +29,19 @@ def mexc_get(path, extra=None):
 
 def mexc_post(path, params):
     key, secret = get_creds()
-    ts = int(time.time()*1000)
-    p = {"timestamp": ts}
+    p = {"timestamp": int(time.time()*1000)}
     p.update(params)
-    sig = sign(secret, p)
-    p["signature"] = sig
+    p["signature"] = sign(secret, p)
+    # MEXC Spot v3: POST com body form-urlencoded (conforme docs oficiais)
+    body = "&".join(f"{k}={v}" for k,v in sorted(p.items()))
     r = requests.post(f"https://api.mexc.com{path}",
-                      params=p,
-                      headers={"X-MEXC-APIKEY": key},
+                      data=body,
+                      headers={
+                          "X-MEXC-APIKEY": key,
+                          "Content-Type": "application/x-www-form-urlencoded"
+                      },
                       timeout=10)
+    log.info(f"[POST] {path} status={r.status_code} body={body[:80]}")
     return r.status_code, r.json()
 
 @app.route("/")
@@ -48,7 +52,7 @@ def index():
 @app.route("/api/health")
 def health():
     key, _ = get_creds()
-    return jsonify({"ok":True,"has_key":bool(key),"version":"3.3-live"})
+    return jsonify({"ok":True,"has_key":bool(key),"version":"3.4-live"})
 
 @app.route("/api/creds")
 def creds():
@@ -184,5 +188,5 @@ def debug():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT",5000))
-    log.info(f"MEXC Bot v3.3 LIVE porta {port}")
+    log.info(f"MEXC Bot v3.4 LIVE porta {port}")
     app.run(host="0.0.0.0", port=port)
