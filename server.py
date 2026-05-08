@@ -44,7 +44,7 @@ def index():
 @app.route("/api/health")
 def health():
     key, _ = get_creds()
-    return jsonify({"ok":True,"has_key":bool(key),"version":"3.0-live"})
+    return jsonify({"ok":True,"has_key":bool(key),"version":"3.1-live"})
 
 @app.route("/api/creds")
 def creds():
@@ -181,5 +181,5 @@ def debug():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT",5000))
-    log.info(f"MEXC Bot v3.0 LIVE porta {port}")
+    log.info(f"MEXC Bot v3.1 LIVE porta {port}")
     app.run(host="0.0.0.0", port=port)
