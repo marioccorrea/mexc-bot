@@ -244,7 +244,24 @@ canvas#ch{width:100%;height:130px;display:block;}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--s3);border-radius:2px;}
 @media(max-width:900px){.metrics{grid-template-columns:repeat(3,1fr);}.grid2{grid-template-columns:1fr;}.rcol{display:none;}}
 @media(max-width:500px){.metrics{grid-template-columns:1fr 1fr;}.mc-val{font-size:14px;}}
-</style>
+
+    /* CARTEIRA */
+    .wallet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;padding:12px}
+    .wallet-card{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:4px}
+    .wallet-card.usdt{border-color:var(--green);background:rgba(0,255,140,0.05)}
+    .wc-asset{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)}
+    .wc-qty{font-family:var(--mono);font-size:11px;color:var(--muted)}
+    .wc-val{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--green)}
+    .wc-price{font-family:var(--mono);font-size:10px;color:var(--muted2)}
+    .wc-pnl{font-size:10px;font-weight:600;border-radius:4px;padding:2px 5px;display:inline-block;margin-top:2px}
+    .wc-pnl.pos{background:rgba(0,255,140,0.15);color:var(--green)}
+    .wc-pnl.neg{background:rgba(255,63,51,0.15);color:var(--red)}
+    .wallet-total{padding:8px 12px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+    .wallet-total b{color:var(--yellow);font-size:14px}
+    .sell-btn{background:rgba(255,63,51,0.2);border:1px solid var(--red);color:var(--red);border-radius:4px;padding:3px 7px;font-size:9px;cursor:pointer;font-family:var(--mono);margin-top:4px}
+    .sell-btn:hover{background:rgba(255,63,51,0.4)}
+    .wallet-empty{padding:24px;text-align:center;color:var(--muted2);font-size:12px}
+  </style>
 </head>
 <body>
 <div class="app">
@@ -435,6 +452,18 @@ canvas#ch{width:100%;height:130px;display:block;}
           <div><div class="ind-l">SINAL</div><div class="ind-v" id="iSig" style="color:var(--muted2)">AGUARD.</div><div class="ind-b"><div class="ind-f" id="iSigB" style="width:0%"></div></div></div>
         </div>
       </div>
+      
+      <!-- CARTEIRA REAL MEXC -->
+      <div class="panel" id="walletPanel">
+        <div class="ph">
+          <span class="pt">CARTEIRA REAL</span>
+          <span class="pb" id="walletTotal">carregando...</span>
+        </div>
+        <div class="wallet-grid" id="walletGrid">
+          <div class="wallet-empty">Carregando carteira...</div>
+        </div>
+      </div>
+  
       <!-- TRADES -->
       <div class="panel">
         <div class="ph"><span class="pt">HISTÁRICO</span><span class="pb" id="tCount">0 trades</span></div>
@@ -1043,6 +1072,74 @@ checkExits=function(){
     }
   });
 };
+
+  // ========== CARTEIRA REAL ==========
+  const _walletBuyPrices = {}; // guarda preco medio de compra do bot
+  
+  async function loadWallet() {
+    try {
+      const r = await fetch('/api/wallet');
+      const d = await r.json();
+      if(!d.ok || !d.assets) return;
+      
+      const grid = document.getElementById('walletGrid');
+      const totalEl = document.getElementById('walletTotal');
+      if(!grid) return;
+      
+      totalEl.textContent = 'Total: $' + d.total_usdt.toFixed(2) + ' USDT';
+      
+      if(d.assets.length === 0){
+        grid.innerHTML = '<div class="wallet-empty">Carteira vazia</div>';
+        return;
+      }
+      
+      grid.innerHTML = d.assets.map(a => {
+        const isUsdt = a.asset === 'USDT';
+        const buyPrice = _walletBuyPrices[a.asset] || 0;
+        let pnlHtml = '';
+        if(!isUsdt && buyPrice > 0 && a.price > 0){
+          const pct = ((a.price - buyPrice) / buyPrice * 100);
+          const cls = pct >= 0 ? 'pos' : 'neg';
+          const sig = pct >= 0 ? '+' : '';
+          pnlHtml = `<span class="wc-pnl ${cls}">${sig}${pct.toFixed(2)}%</span>`;
+        }
+        const qty = a.total < 0.001 ? a.total.toFixed(8) : a.total < 1 ? a.total.toFixed(4) : a.total.toFixed(2);
+        const sellBtn = !isUsdt && a.value_usdt >= 0.5 ?
+          `<button class="sell-btn" onclick="sellAsset('${a.asset}','${a.total}')">VENDER</button>` : '';
+        return `<div class="wallet-card ${isUsdt?'usdt':''}">
+          <span class="wc-asset">${a.asset}</span>
+          <span class="wc-qty">${qty} un.</span>
+          <span class="wc-val">$${a.value_usdt.toFixed(2)}</span>
+          ${!isUsdt ? `<span class="wc-price">@ $${a.price < 0.001 ? a.price.toFixed(8) : a.price.toFixed(4)}</span>` : ''}
+          ${pnlHtml}
+          ${sellBtn}
+        </div>`;
+      }).join('');
+    } catch(e) { console.error('wallet err',e); }
+  }
+  
+  async function sellAsset(asset, qty){
+    if(!confirm('Vender ' + qty + ' ' + asset + '?')) return;
+    const symbol = asset + 'USDT';
+    // Arredonda quantidade para evitar erros de precisao
+    const qtyNum = parseFloat(qty);
+    const qtyStr = qtyNum < 1 ? qtyNum.toFixed(4) : Math.floor(qtyNum).toString();
+    try {
+      const r = await fetch('/api/order/sell',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({symbol,quantity:qtyStr})});
+      const d = await r.json();
+      if(d.ok){ addLog('Vendido ' + asset + ' - OK'); loadWallet(); }
+      else addLog('ERRO venda ' + asset + ': ' + (d.error||''));
+    } catch(e){ addLog('ERRO venda: '+e.message); }
+  }
+  
+  // Registra preco de compra quando bot executa ordem
+  const _origOpenPos = typeof openPos === 'function' ? openPos : null;
+  
+  // Atualiza carteira a cada 15 segundos
+  loadWallet();
+  setInterval(loadWallet, 15000);
+  
 </script>
 </body>
 </html>
