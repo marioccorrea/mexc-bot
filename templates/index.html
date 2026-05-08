@@ -261,6 +261,41 @@ canvas#ch{width:100%;height:130px;display:block;}
     .sell-btn{background:rgba(255,63,51,0.2);border:1px solid var(--red);color:var(--red);border-radius:4px;padding:3px 7px;font-size:9px;cursor:pointer;font-family:var(--mono);margin-top:4px}
     .sell-btn:hover{background:rgba(255,63,51,0.4)}
     .wallet-empty{padding:24px;text-align:center;color:var(--muted2);font-size:12px}
+  
+    /* FUTURES */
+    .mode-tabs{display:flex;gap:8px;margin-bottom:16px}
+    .mode-tab{flex:1;padding:10px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-family:var(--mono);font-size:12px;font-weight:700;text-align:center;transition:.2s;background:var(--s1);color:var(--muted)}
+    .mode-tab.active{border-color:var(--green);color:var(--green);background:rgba(0,255,140,0.08)}
+    .mode-tab.fut-tab.active{border-color:var(--orange);color:var(--orange);background:rgba(255,140,0,0.08)}
+    .fut-cfg{display:none;background:rgba(255,140,0,0.05);border:1px solid rgba(255,140,0,0.2);border-radius:10px;padding:14px;margin-bottom:16px}
+    .fut-cfg.show{display:block}
+    .fut-cfg-title{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--orange);margin-bottom:12px;letter-spacing:1px}
+    .lev-row{display:flex;gap:6px;margin-bottom:12px}
+    .lev-btn{flex:1;padding:7px;border-radius:6px;border:1px solid var(--border);background:var(--s1);color:var(--muted);font-family:var(--mono);font-size:11px;cursor:pointer;text-align:center;font-weight:700}
+    .lev-btn.sel{border-color:var(--orange);color:var(--orange);background:rgba(255,140,0,0.12)}
+    .dir-row{display:flex;gap:6px;margin-bottom:12px}
+    .dir-btn{flex:1;padding:8px;border-radius:6px;border:1px solid var(--border);background:var(--s1);font-family:var(--mono);font-size:11px;cursor:pointer;font-weight:700;text-align:center;color:var(--muted)}
+    .dir-btn.long.sel{border-color:var(--green);color:var(--green);background:rgba(0,255,140,0.1)}
+    .dir-btn.short.sel{border-color:var(--red);color:var(--red);background:rgba(255,63,51,0.1)}
+    /* POSICOES FUTURES */
+    .pos-grid{display:flex;flex-direction:column;gap:8px;padding:12px}
+    .pos-card{border-radius:8px;border:1px solid var(--border);padding:12px;background:var(--s1);display:grid;grid-template-columns:1fr 1fr;gap:6px;position:relative}
+    .pos-card.long{border-left:3px solid var(--green)}
+    .pos-card.short{border-left:3px solid var(--red)}
+    .pc-sym{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text);grid-column:1/3}
+    .pc-dir{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;display:inline-block}
+    .pc-dir.long{background:rgba(0,255,140,0.15);color:var(--green)}
+    .pc-dir.short{background:rgba(255,63,51,0.15);color:var(--red)}
+    .pc-label{font-size:10px;color:var(--muted2);font-family:var(--mono)}
+    .pc-val{font-size:12px;font-weight:700;font-family:var(--mono);color:var(--text)}
+    .pc-pnl{font-size:14px;font-weight:700;font-family:var(--mono);grid-column:1/3}
+    .pc-pnl.pos{color:var(--green)}
+    .pc-pnl.neg{color:var(--red)}
+    .pc-close{position:absolute;top:8px;right:8px;background:rgba(255,63,51,0.2);border:1px solid var(--red);color:var(--red);border-radius:4px;padding:3px 8px;font-size:10px;cursor:pointer;font-family:var(--mono);font-weight:700}
+    .pc-close:hover{background:rgba(255,63,51,0.5)}
+    .pos-empty{padding:24px;text-align:center;color:var(--muted2);font-size:12px}
+    .fut-bal{font-family:var(--mono);font-size:11px;color:var(--muted);padding:0 12px 8px}
+    .liq-warn{color:var(--red);font-size:10px;font-family:var(--mono)}
   </style>
 </head>
 <body>
@@ -270,6 +305,51 @@ canvas#ch{width:100%;height:130px;display:block;}
 <header class="hdr">
   <div class="logo">
     <div class="logo-icon">ð¤</div>
+
+  <div id="futCfg" class="fut-cfg">
+    <div class="fut-cfg-title">CONFIGURACAO FUTURES</div>
+    <div class="slabel">PAR</div>
+    <select id="futSymbol" style="width:100%;padding:8px;background:var(--s1);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:12px;margin-bottom:12px">
+      <option value="BTC_USDT">BTC_USDT</option>
+      <option value="ETH_USDT">ETH_USDT</option>
+      <option value="SOL_USDT">SOL_USDT</option>
+      <option value="XRP_USDT">XRP_USDT</option>
+      <option value="DOGE_USDT">DOGE_USDT</option>
+      <option value="BNB_USDT">BNB_USDT</option>
+      <option value="PEPE_USDT">PEPE_USDT</option>
+    </select>
+    <div class="slabel">DIRECAO</div>
+    <div class="dir-row">
+      <div class="dir-btn long sel" id="dirLong" onclick="selDir('LONG')">LONG (ALTA)</div>
+      <div class="dir-btn short" id="dirShort" onclick="selDir('SHORT')">SHORT (QUEDA)</div>
+      <div class="dir-btn" id="dirBoth" onclick="selDir('BOTH')">AUTO</div>
+    </div>
+    <div class="slabel">ALAVANCAGEM</div>
+    <div class="lev-row">
+      <div class="lev-btn" onclick="selLev(1)">1x</div>
+      <div class="lev-btn sel" onclick="selLev(2)">2x</div>
+      <div class="lev-btn" onclick="selLev(5)">5x</div>
+      <div class="lev-btn" onclick="selLev(10)">10x</div>
+    </div>
+    <div class="slabel">VALOR POR TRADE (USDT)</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <input id="futAmt" type="range" min="1" max="50" value="1" step="1" style="flex:1" oninput="document.getElementById('futAmtV').textContent='$'+this.value">
+      <span id="futAmtV" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--orange);min-width:32px">$1</span>
+    </div>
+    <div class="slabel">TAKE PROFIT (%)</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <input id="futTp" type="range" min="0.5" max="10" value="2" step="0.5" style="flex:1" oninput="document.getElementById('futTpV').textContent=this.value+'%'">
+      <span id="futTpV" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--green);min-width:36px">2%</span>
+    </div>
+    <div class="slabel">STOP LOSS (%)</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+      <input id="futSl" type="range" min="0.5" max="5" value="1" step="0.5" style="flex:1" oninput="document.getElementById('futSlV').textContent=this.value+'%'">
+      <span id="futSlV" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--red);min-width:36px">1%</span>
+    </div>
+    <div style="font-size:10px;color:var(--muted2);font-family:var(--mono);margin-top:6px">
+      Com 2x: TP real = 4% no preco | SL real = 2% no preco
+    </div>
+  </div>
     <div>
       <div class="logo-text">MEXCÂ·BOT</div>
       <div class="logo-sub">TRADING AUTOMÁTICO</div>
@@ -453,6 +533,18 @@ canvas#ch{width:100%;height:130px;display:block;}
         </div>
       </div>
       
+      
+      <!-- POSICOES FUTURES -->
+      <div class="panel" id="futPanel" style="display:none">
+        <div class="ph">
+          <span class="pt" style="color:var(--orange)">POSICOES FUTURES</span>
+          <span class="pb" id="futPosCount">0 abertas</span>
+        </div>
+        <div class="fut-bal" id="futBalInfo">Saldo Futures: carregando...</div>
+        <div class="pos-grid" id="posGrid">
+          <div class="pos-empty">Nenhuma posicao aberta</div>
+        </div>
+      </div>
       <!-- CARTEIRA REAL MEXC -->
       <div class="panel" id="walletPanel">
         <div class="ph">
@@ -1139,6 +1231,183 @@ checkExits=function(){
   // Atualiza carteira a cada 15 segundos
   loadWallet();
   setInterval(loadWallet, 15000);
+  
+
+  // ========== FUTURES ==========
+  let _futMode = false;
+  let _futDir = 'LONG';
+  let _futLev = 2;
+  let _futInterval = null;
+
+  function selDir(d){
+    _futDir = d;
+    ['Long','Short','Both'].forEach(x => {
+      const el = document.getElementById('dir'+x);
+      if(el) el.classList.toggle('sel', x.toUpperCase()===d || (x==='Both' && d==='BOTH'));
+    });
+    // Atualiza aviso de alavancagem
+  }
+
+  function selLev(l){
+    _futLev = l;
+    document.querySelectorAll('.lev-btn').forEach((b,i)=>{
+      b.classList.toggle('sel', [1,2,5,10][i]===l);
+    });
+    const tp = parseFloat(document.getElementById('futTp')?.value||2);
+    const sl = parseFloat(document.getElementById('futSl')?.value||1);
+    const info = document.querySelector('.fut-cfg > div:last-child');
+    if(info) info.textContent = 'Com '+l+'x: TP real = '+(tp*l).toFixed(1)+'% no preco | SL real = '+(sl*l).toFixed(1)+'% no preco';
+  }
+
+  function toggleFutMode(active){
+    _futMode = active;
+    const futCfg = document.getElementById('futCfg');
+    const futPanel = document.getElementById('futPanel');
+    const walletPanel = document.getElementById('walletPanel');
+    if(futCfg) futCfg.classList.toggle('show', active);
+    if(futPanel) { futPanel.style.display = active ? '' : 'none'; }
+    if(walletPanel) { walletPanel.style.display = active ? 'none' : ''; }
+    if(active){
+      loadFutPositions();
+      loadFutBalance();
+      if(_futInterval) clearInterval(_futInterval);
+      _futInterval = setInterval(()=>{ loadFutPositions(); loadFutBalance(); }, 10000);
+    } else {
+      if(_futInterval){ clearInterval(_futInterval); _futInterval=null; }
+    }
+  }
+
+  // Intercept modo real para mostrar opcao Futures
+  const _origSelMode = typeof selMode==='function' ? selMode : null;
+
+  async function loadFutBalance(){
+    try {
+      const r = await fetch('/api/futures/balance');
+      const d = await r.json();
+      const el = document.getElementById('futBalInfo');
+      if(el && d.ok){
+        el.textContent = 'Saldo Futures: $'+d.balance.toFixed(2)+' USDT disponivel | Equity: $'+d.equity.toFixed(2);
+      } else if(el){
+        el.textContent = 'Saldo Futures: ' + (d.error||'erro');
+      }
+    } catch(e){ console.error('fut bal err',e); }
+  }
+
+  async function loadFutPositions(){
+    try {
+      const r = await fetch('/api/futures/positions');
+      const d = await r.json();
+      const grid = document.getElementById('posGrid');
+      const cnt  = document.getElementById('futPosCount');
+      if(!grid || !d.ok) return;
+      if(!d.positions || d.positions.length===0){
+        grid.innerHTML='<div class="pos-empty">Nenhuma posicao aberta</div>';
+        if(cnt) cnt.textContent='0 abertas';
+        return;
+      }
+      if(cnt) cnt.textContent = d.positions.length+' aberta'+(d.positions.length>1?'s':'');
+      grid.innerHTML = d.positions.map(p => {
+        const cls = p.side==='LONG'?'long':'short';
+        const pnlCls = p.pnl_pct>=0?'pos':'neg';
+        const pnlSign = p.pnl_pct>=0?'+':'';
+        const liqDist = p.entry>0 ? Math.abs((p.liq-p.last)/p.last*100).toFixed(1) : '-';
+        return `<div class="pos-card ${cls}">
+          <div class="pc-sym">${p.symbol} <span class="pc-dir ${cls}">${p.side} ${p.leverage}x</span></div>
+          <div>
+            <div class="pc-label">Entrada</div>
+            <div class="pc-val">$${p.entry.toFixed(4)}</div>
+          </div>
+          <div>
+            <div class="pc-label">Atual</div>
+            <div class="pc-val">$${p.last.toFixed(4)}</div>
+          </div>
+          <div>
+            <div class="pc-label">Margem</div>
+            <div class="pc-val">$${p.margin.toFixed(2)}</div>
+          </div>
+          <div>
+            <div class="pc-label">Liq. dist.</div>
+            <div class="pc-val liq-warn">${liqDist}%</div>
+          </div>
+          <div class="pc-pnl ${pnlCls}">${pnlSign}${p.pnl_pct}% (${pnlSign}$${Math.abs(p.pnl_usdt).toFixed(3)})</div>
+          <button class="pc-close" onclick="closeFutPos('${p.symbol}','${p.side}',${p.qty})">FECHAR</button>
+        </div>`;
+      }).join('');
+    } catch(e){ console.error('fut pos err',e); }
+  }
+
+  async function openFutPos(symbol, side, amount, leverage, tp, sl){
+    addLog('Abrindo Futures '+side+' '+symbol+' $'+amount+' '+leverage+'x...');
+    try {
+      const r = await fetch('/api/futures/open',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({symbol,side,amount,leverage})});
+      const d = await r.json();
+      if(d.ok){
+        addLog('Futures '+side+' '+symbol+' aberto! Vol='+d.vol+' @ $'+d.price.toFixed(4));
+        loadFutPositions();
+      } else {
+        addLog('ERRO Futures '+symbol+': '+(d.error||''));
+      }
+    } catch(e){ addLog('ERRO Futures: '+e.message); }
+  }
+
+  async function closeFutPos(symbol, side, vol){
+    if(!confirm('Fechar posicao '+side+' '+symbol+'?')) return;
+    addLog('Fechando Futures '+side+' '+symbol+'...');
+    try {
+      const r = await fetch('/api/futures/close',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({symbol,side,vol})});
+      const d = await r.json();
+      if(d.ok){
+        addLog('Futures '+side+' '+symbol+' fechado!');
+        loadFutPositions();
+      } else {
+        addLog('ERRO fechar '+symbol+': '+(d.error||''));
+      }
+    } catch(e){ addLog('ERRO fechar: '+e.message); }
+  }
+
+  // Hook no bot loop para Futures
+  const _origLoop = typeof botLoop==='function' ? botLoop : null;
+  async function futBotLoop(){
+    if(!_futMode || !_isRunning) return;
+    const symbol = document.getElementById('futSymbol')?.value || 'BTC_USDT';
+    const amount = parseFloat(document.getElementById('futAmt')?.value||1);
+    const leverage = _futLev;
+    const tp = parseFloat(document.getElementById('futTp')?.value||2);
+    const sl = parseFloat(document.getElementById('futSl')?.value||1);
+    const dir = _futDir;
+
+    // Verifica posicoes abertas - nao abre se ja tem
+    const rPos = await fetch('/api/futures/positions');
+    const dPos = await rPos.json();
+    const openPos = dPos.positions || [];
+    const hasPos = openPos.find(p => p.symbol===symbol);
+
+    if(hasPos){
+      // Monitora SL/TP
+      const p = hasPos;
+      if(p.pnl_pct >= tp*leverage || p.pnl_pct <= -(sl*leverage)){
+        const reason = p.pnl_pct >= tp*leverage ? 'TP atingido' : 'SL atingido';
+        addLog(reason+' '+symbol+' PnL='+p.pnl_pct+'%');
+        await closeFutPos(symbol, p.side, p.qty);
+      }
+      return;
+    }
+
+    // Analisa sinal
+    if(!window._lastSig) return;
+    const sig = window._lastSig;
+    let side = null;
+    if(dir==='LONG' && sig==='buy') side='LONG';
+    else if(dir==='SHORT' && sig==='sell') side='SHORT';
+    else if(dir==='BOTH'){
+      if(sig==='buy') side='LONG';
+      else if(sig==='sell') side='SHORT';
+    }
+    if(!side) return;
+    await openFutPos(symbol, side, amount, leverage, tp, sl);
+  }
   
 </script>
 </body>
