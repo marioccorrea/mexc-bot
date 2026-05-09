@@ -1368,8 +1368,7 @@ checkExits=function(){
   }
   
   // Registra preco de compra quando bot executa ordem
-  const _origOpenPos = typeof openPos === 'function' ? openPos : null;
-  
+    
   // Atualiza carteira a cada 15 segundos
   loadWallet();
   setInterval(loadWallet, 15000);
@@ -1510,8 +1509,7 @@ checkExits=function(){
   }
 
   // Hook no bot loop para Futures
-  const _origLoop = typeof botLoop==='function' ? botLoop : null;
-  async function futBotLoop(){
+    async function futBotLoop(){
     if(!_futMode || !_isRunning) return;
     const symbol = document.getElementById('futSymbol')?.value || 'BTC_USDT';
     const amount = parseFloat(document.getElementById('futAmt')?.value||1);
@@ -1898,7 +1896,6 @@ let _dailyGoalHit = false;
 let _dayStartBalance = 0;
 let _passedGoal = false;
 let _pnlTab = 'day';
-const _pnlStore = JSON.parse(localStorage.getItem('mexc_pnl2')||'{"trades":[]}');
 const savePnl = ()=>{ try{localStorage.setItem('mexc_pnl2',JSON.stringify(_pnlStore));}catch(e){} };
 const getTodayKey = ()=>new Date().toISOString().split('T')[0];
 const getWeekKey = ()=>{ const d=new Date(),day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1); return new Date(d.setDate(diff)).toISOString().split('T')[0]; };
